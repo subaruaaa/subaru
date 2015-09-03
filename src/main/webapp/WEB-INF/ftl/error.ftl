@@ -1,0 +1,1 @@
+<#if callback??>${callback}(</#if>{"status":"error", "msg":"default error"}<#if callback??>)</#if>
