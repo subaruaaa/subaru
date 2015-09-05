@@ -1,4 +1,4 @@
-package subaru.com.utils;
+package com.subaru.utils;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;

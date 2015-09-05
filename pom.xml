@@ -5,7 +5,7 @@
 	<groupId>subaru</groupId>
 	<artifactId>subaru</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>subaru</name>
 	<url>http://maven.apache.org</url>

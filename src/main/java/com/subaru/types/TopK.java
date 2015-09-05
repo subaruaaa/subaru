@@ -1,4 +1,4 @@
-package subaru.com.types;
+package com.subaru.types;
 
 import org.springframework.util.Assert;
 

@@ -38,7 +38,7 @@
 		<property name="requestContextAttribute" value="rc"></property>
 	</bean>
 	
-	<bean class="subaru.com.controller.MsMappingExceptionResolver">  
+	<bean class="com.subaru.controller.MsMappingExceptionResolver">  
 	    <property name="warnLogCategory" value = "exceptionLogger"/>  
 	    <property name="exceptionMappings">  
 	        <props> 

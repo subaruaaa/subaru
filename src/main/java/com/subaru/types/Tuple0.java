@@ -1,4 +1,4 @@
-package subaru.com.types;
+package com.subaru.types;
 
 public class Tuple0 {
     protected String _string() {

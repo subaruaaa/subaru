@@ -9,7 +9,7 @@
 
 	<!-- Scans the classpath of this application for @Components to deploy as 
 		beans -->
-	<context:component-scan base-package="subaru.com" />
+	<context:component-scan base-package="com.subaru" />
 	<task:annotation-driven />
 
 	<bean
