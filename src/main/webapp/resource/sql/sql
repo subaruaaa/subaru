@@ -1,0 +1,71 @@
+CREATE TABLE `customer` (
+  `tel` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `occupation` varchar(255) NOT NULL DEFAULT '',
+  `identityCard` varchar(255) NOT NULL DEFAULT '',
+  `birthday` varchar(255) NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `introducerType` varchar(255) NOT NULL DEFAULT '',
+  `introducer` varchar(255) NOT NULL DEFAULT '',
+  `note` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`tel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+insert into customer values ("5201314","王大锤","演员","35020419900427201X","1990-04-04","wangdachui@subaru.com","1","张大妈","家里人很喜欢");
+
+create table `employee` (
+`name` varchar(255) NOT NULL DEFAULT '', 
+`tel` varchar(255) NOT NULL DEFAULT '', 
+`email` varchar(255) NOT NULL DEFAULT '', 
+`identificationCard` varchar(255) NOT NULL DEFAULT '', 
+`birthday` varchar(255) NOT NULL DEFAULT '', 
+`status` varchar(255) NOT NULL DEFAULT '', 
+`add` varchar(255) NOT NULL DEFAULT '', 
+`position` varchar(255) NOT NULL DEFAULT '', 
+`store` varchar(255) NOT NULL DEFAULT '', 
+`totalLose` varchar(255) NOT NULL DEFAULT '', 
+`thisMonthLose` varchar(255) NOT NULL DEFAULT '',
+PRIMARY KEY (`tel`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8
+insert into employee values("赖晓航","18695690001","laixioahang@sina.com",
+"23020082203856","1990-04-27","在职","松柏","销售","厦门店","10","1");
+
+create table `VehicleStyle` (
+`id` int(10) NOT NULL auto_increment, 
+`carSeries` varchar(255) NOT NULL DEFAULT '', 
+`model` varchar(255) NOT NULL DEFAULT '', 
+`color` varchar(255) NOT NULL DEFAULT '', 
+PRIMARY KEY (id), 
+UNIQUE KEY `VehicleStyle`(`carSeries`,`model`,`color`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into VehicleStyle (`carSeries`,`model`,`color`) values("傲虎","2015款 2.5i 经典版","绸缎珍珠白");
+insert into VehicleStyle (`carSeries`,`model`,`color`) values("傲虎","2015款 2.5i 经典版","淡紫金属灰");
+insert into VehicleStyle (`carSeries`,`model`,`color`) values("傲虎","2015款 2.5i 经典版","古铜香槟金");
+
+create table `visit`(
+`id` int(10) NOT NULL auto_increment, 
+`intentionVehicleStyleId` int(10) NOT NULL,
+`employeeTel` bigint(15) NOT NULL,
+`price` float(10) NOT NULL,
+`disCountType` int(10) NOT NULL,
+`quota` float(10) NOT NULL,
+`expectedDisCountType` int(10) NOT NULL,
+`expectedQuota` float(10) NOT NULL,
+`note` varchar(255) NOT NULL DEFAULT '',
+`time` varchar(255) NOT NULL DEFAULT '',
+PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into `visit` (`intentionVehicleStyleId`,`employeeTel`,`price`,`disCountType`,`quota`,
+`expectedDisCountType`,`expectedQuota`,`time`) values (1,18695690001,25.3,1,0.6,1,0.8,"2015-09-16 23:48");
+
+
+
+
+
+
+
+
+
+
+
+

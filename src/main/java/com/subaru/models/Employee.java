@@ -2,27 +2,27 @@ package com.subaru.models;
 
 public class Employee {
 	// 姓名
-	private String name;
+	public String name;
 	// 电话
-	private String tel;
+	public String tel;
 	// 邮箱
-	private String email;
+	public String email;
 	// 身份证
-	private String identificationCard;
+	public String identificationCard;
 	// 生日
-	private String birthday;
+	public String birthday;
 	// 在职情况
-	private String status;
+	public String status;
 	// 地址
-	private String add;
+	public String add;
 	// 职位
-	private String position = "position";
+	public String position = "position";
 	// 所在店面
-	private String store = "store";
+	public String store = "store";
 	// 累计战败次数
-	private int totalLose;
+	public int totalLose;
 	// 当月战败次数
-	private int thisMonthLose;
+	public int thisMonthLose;
 
 	public Employee(String name, String tel, String email,
 			String identificationCard, String birthday, String status,
@@ -38,7 +38,8 @@ public class Employee {
 		this.store = store;
 	}
 
-	public Employee() {
+	public Employee(String tel) {
+		//TODO getMessage from db
 		this.name = "赖晓航";
 		this.tel = "18695690001";
 		this.email = "laixiaohang@sina.com";

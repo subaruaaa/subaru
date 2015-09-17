@@ -14,27 +14,27 @@ public class Customer {
 	private int introducerType;
 	// 介绍人名字
 	private String introducer;
-	private boolean blacked;
+	private Boolean blacked;
 	private String note;
 
 	public Customer(String name, String tel, String occupation,
-			String identityCard, String birthday, String email, String note) {
+			String identityCard, String birthday, String email, String note, int introducerType, String introducer, Boolean blacked) {
 		this.name = name;
 		this.tel = tel;
 		this.occupation = occupation;
 		this.identityCard = identityCard;
 		this.birthday = birthday;
 		this.email = email;
-		this.introducerType = 1;
-		this.introducer = "习大大";
-		blacked = false;
+		this.introducerType = introducerType;
+		this.introducer = introducer;
+		this.blacked = blacked;
 		this.note = note;
 	}
 
 	// TODO 通过tel来查询顾客信息
 	public Customer(String tel) {
 		this.name = "王大锤";
-		this.tel = tel;
+		this.tel = "5201314";
 		this.occupation = "非著名演员";
 		this.identityCard = "35020419900428220X";
 		this.birthday = "1990-04-28";
