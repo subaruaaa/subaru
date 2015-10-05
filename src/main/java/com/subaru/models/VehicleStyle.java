@@ -15,6 +15,6 @@ public class VehicleStyle {
 		this.id = 3;
 		this.carSeries = "森林人";
 		this.model = "2014款 2.0i 自动舒适版";
-		this.model = "珠光宝石黑";
+		this.color = "珠光宝石黑";
 	}
 }

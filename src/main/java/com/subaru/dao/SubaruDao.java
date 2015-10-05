@@ -62,9 +62,11 @@ public class SubaruDao {
 	}
 
 	public Map<String, Object> getEmployeeByTel(String tel) {
+		System.out.println("tel:" + tel);
 		String sql = "SELECT * FROM employee where tel = ? ";
 		List<Map<String, Object>> list = simpleJdbcTemplate.queryForList(sql,
 				tel);
+		System.out.println("list:" + list);
 		if (list.size() == 1) {
 			return list.get(0);
 		}
@@ -94,6 +96,31 @@ public class SubaruDao {
 		List<Map<String, Object>> list = simpleJdbcTemplate.queryForList(sql,
 				tel);
 		return list;
-
 	}
+
+	// 0 全款，1按揭
+	// 结单dao
+	public List<Map<String, Object>> getOrder(String customerTel) {
+		String sql = "SELECT * FROM `order` WHERE customerTel = ? ";
+		List<Map<String, Object>> list = simpleJdbcTemplate.queryForList(sql,
+				customerTel);
+		return list;
+	}
+
+	// //修改
+	// public List<Map<String, Object>> getOrder(String customerTel) {
+	// String sql = "SELECT * FROM `order` WHERE customerTel = ? ";
+	// List<Map<String, Object>> list = simpleJdbcTemplate.queryForList(sql,
+	// customerTel);
+	// return list;
+	// }
+	//
+	// //删除
+	// public List<Map<String, Object>> getOrder(String customerTel) {
+	// String sql = "SELECT * FROM `order` WHERE customerTel = ? ";
+	// List<Map<String, Object>> list = simpleJdbcTemplate.queryForList(sql,
+	// customerTel);
+	// return list;
+	// }
+
 }

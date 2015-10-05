@@ -27,6 +27,7 @@ public class EmployeeService {
 			String add = infos.get("add").toString();
 			String position = infos.get("position").toString();
 			String store = infos.get("store").toString();
+			// TODO 这里需要处理
 			String totalLose = infos.get("totalLose").toString();
 			String thisMonthLose = infos.get("thisMonthLose").toString();
 
@@ -46,8 +47,8 @@ public class EmployeeService {
 
 		return null;
 	}
-	
-	public void delEmployee(String tel){
+
+	public void delEmployee(String tel) {
 		subaruDao.delEmployee(tel);
 	}
 }

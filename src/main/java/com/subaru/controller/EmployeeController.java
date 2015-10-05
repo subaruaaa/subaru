@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.subaru.constants.FIELDS;
 import com.subaru.dao.SubaruDao;
@@ -53,6 +54,7 @@ public class EmployeeController {
 							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
 							FIELDS.NOT_LOGIN), callback);
 		}
+		//电话是key
 		String employeeTel = Common.getLoginTel(request);
 		Employee employee = new Employee(name, employeeTel, email, identificationCard, birthday, status, add, position, store);
 		employeeService.saveEmployee(employee);
@@ -65,7 +67,7 @@ public class EmployeeController {
 
 	// TODO 删除
 	@RequestMapping("/delEmployee.php")
-	public ResponseEntity<String> delEmployee(String employeeTel, String callback,
+	public ResponseEntity<String> delEmployee(@RequestParam(value = "employeeTel", required = true)String employeeTel, String callback,
 			HttpServletRequest request, HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
 			return jsonpEntity(

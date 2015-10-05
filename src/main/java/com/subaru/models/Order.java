@@ -1,6 +1,6 @@
 package com.subaru.models;
 
-import java.awt.List;
+import java.util.Map;
 
 //订单信息（交易完成）
 public class Order {
@@ -16,11 +16,7 @@ public class Order {
 	// 开票价格
 	private Float invoicePrice;
 	// 付款方式，０全款，１按揭
-	private int payType;
-	// 按揭银行
-	private String mortgageBank;
-	// 按揭金额
-	private Float mortgageAmount;
+	private Payment payment;
 	// 优惠情况
 	private Discount discount;
 	// 购买数量
@@ -28,20 +24,19 @@ public class Order {
 	// 结单人员
 	private Employee employee;
 
-	public Order(String customerTel, String employeeTel) {
-		this.customer = new Customer(customerTel);
-		orderDate = "2015-09-01";
-		// TODO 或者使用id传入
-		this.vehicleStyle = new VehicleStyle("2014款 2.0i 自动舒适版");
-		price = 25.3f;
-		invoicePrice = 23.3f;
-		this.vehicleIdentificationNumber = "JF1SG52N07H113703";
-		payType = 1;
-		mortgageBank = "建设银行松柏支行";
-		mortgageAmount = 15.3f;
-		this.discount = new Discount(1, 0.5f);
-		this.purchaseQuantity = 1;
-		this.employee = new Employee(employeeTel);
-
+	public Order(Customer customer, String orderDate,
+			VehicleStyle vehicleStyle, String vehicleIdentificationNumber,
+			Float price, Float invoicePrice, Payment payment,
+			Discount discount, int purchaseQuantity, Employee employee) {
+		this.customer = customer;
+		this.orderDate = orderDate;
+		this.vehicleStyle = vehicleStyle;
+		this.vehicleIdentificationNumber = vehicleIdentificationNumber;
+		this.price = price;
+		this.invoicePrice = invoicePrice;
+		this.payment = payment;
+		this.discount = discount;
+		this.purchaseQuantity = purchaseQuantity;
+		this.employee = employee;
 	}
 }

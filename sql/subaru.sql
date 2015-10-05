@@ -172,3 +172,26 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2015-09-17 23:05:40
+
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `orderDate` varchar(255) NOT NULL,
+  `customerTel` varchar(255) NOT NULL,
+  `vehicleStyle` int(10) NOT NULL,
+  `vehicleIdentificationNumber` varchar(255) NOT NULL,
+  `price` float(10) NOT NULL,
+  `invoicePrice` float(10) NOT NULL,
+  `payment` varchar(255) NOT NULL, /* 付款情况  */
+  `discount` varchar(255) NOT NULL DEFAULT '',
+  `purchaseQuantity` int(10) NOT NULL,
+  `employeeTel` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `order` (`orderDate`, `customerTel`,`vehicleStyle`,`vehicleIdentificationNumber`,`price`,`invoicePrice`,`payment`,
+`discount`,`purchaseQuantity`,`employeeTel`) values ("2015-10-05", "5201314",1,"abcdefg99999",20.3,19.3,"1-建设银行-10.0","daiwanshan",2,"18695690001");
+
+INSERT INTO `order` (`orderDate`, `customerTel`,`vehicleStyle`,`vehicleIdentificationNumber`,`price`,`invoicePrice`,`payment`,
+`discount`,`purchaseQuantity`,`employeeTel`) values ("2015-10-05", "5201314",1,"dasdasd",20.3,19.3,"1-建设银行-10.0","daiwanshan",2,"18695690001");
+
