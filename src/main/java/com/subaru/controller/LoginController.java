@@ -7,21 +7,19 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.LogSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cloopen.rest.demo.QuerySMSTemplate;
 import com.subaru.constants.FIELDS;
-import com.subaru.dao.SubaruDao;
 import com.subaru.models.Employee;
 import com.subaru.models.HomePage;
 import com.subaru.services.EmployeeService;
 import com.subaru.services.LoginService;
 import com.subaru.utils.Common;
-import com.subaru.utils.HashHelper;
 import com.subaru.utils.LoginHelper;
 
 import static com.subaru.types.functions.map;
@@ -37,9 +35,8 @@ public class LoginController {
 	EmployeeService employeeService;
 
 	@RequestMapping("/logout.php")
-	public ResponseEntity<String> logout(String tel, String passwd,
-			String callback, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ResponseEntity<String> logout(String callback,
+			HttpServletRequest request, HttpServletResponse response) {
 		QuerySMSTemplate.test();
 
 		Cookie cookie = new Cookie("pauth", null);
@@ -53,7 +50,9 @@ public class LoginController {
 	}
 
 	@RequestMapping("/login.php")
-	public ResponseEntity<String> login(String employeeTel, String passwd,
+	public ResponseEntity<String> login(
+			@RequestParam(value = "employeeTel", required = true) String employeeTel,
+			@RequestParam(value = "passwd", required = true) String passwd,
 			String callback, HttpServletRequest request,
 			HttpServletResponse response) {
 
@@ -74,17 +73,20 @@ public class LoginController {
 
 	// 重置密码
 	@RequestMapping("/resetPasswd.php")
-	public ResponseEntity<String> resetPasswd(String employeeTel,
-			String newPasswd, String callback, HttpServletRequest request,
+	public ResponseEntity<String> resetPasswd(
+			@RequestParam(value = "employeeTel", required = true) String employeeTel,
+			@RequestParam(value = "newPasswd", required = true) String newPasswd,
+			String callback, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 如果再输入验证码的5min中内重置，是可以的
 		if (loginService.isChangePasswd(employeeTel)) {
 			loginService.savePasswd(employeeTel, newPasswd);
 			loginService.clearTelCodeMap(employeeTel);
-
+			loginService.login(employeeTel, newPasswd, response);
 			return jsonpEntity(
 					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_SUCCESS, FIELDS.MESSAGE, "重置密码成功"), callback);
+							FIELDS.CODE_SUCCESS, FIELDS.MESSAGE, "重置密码成功"),
+					callback);
 		}
 		loginService.clearTelCodeMap(employeeTel);
 
@@ -95,8 +97,10 @@ public class LoginController {
 	}
 
 	@RequestMapping("/getCode.php")
-	public ResponseEntity<String> getCode(String employeeTel, String callback,
-			HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<String> getCode(
+			@RequestParam(value = "employeeTel", required = true) String employeeTel,
+			String callback, HttpServletRequest request,
+			HttpServletResponse response) {
 		Integer code = 1234;
 		// TODO 发达验证码，存储验证码
 
@@ -107,7 +111,9 @@ public class LoginController {
 	}
 
 	@RequestMapping("/checkCode.php")
-	public ResponseEntity<String> getCode(String employeeTel, Integer code,
+	public ResponseEntity<String> getCode(
+			@RequestParam(value = "employeeTel", required = true) String employeeTel,
+			@RequestParam(value = "code", required = true) Integer code,
 			String callback, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (code == 1234) {
@@ -134,8 +140,6 @@ public class LoginController {
 		}
 		String employeeTel = Common.getLoginTel(request);
 		Employee employee = employeeService.getEmployee(employeeTel);
-		// TODO List<HomePage> list = getListByTel();
-		// TODO 增加店员的信息
 		List<HomePage> list = new ArrayList<HomePage>();
 		HomePage homePage = new HomePage(1, "审批");
 		HomePage homePage2 = new HomePage(2, "报表");
@@ -158,17 +162,21 @@ public class LoginController {
 						employee, "announcement", "这是一条公告"), callback);
 	}
 
-	// TODO 修改密码
+	//修改密码
 	@RequestMapping("/modifyPasswd.php")
-	public ResponseEntity<String> modifyPasswd(String employeeTel,
-			String oldPasswd, String newPasswd, String callback,
-			HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<String> modifyPasswd(
+			@RequestParam(value = "employeeTel", required = true) String employeeTel,
+			@RequestParam(value = "oldPasswd", required = true) String oldPasswd,
+			@RequestParam(value = "newPasswd", required = true) String newPasswd,
+			String callback, HttpServletRequest request,
+			HttpServletResponse response) {
 		if (loginService.login(employeeTel, oldPasswd, response)) {
 			loginService.savePasswd(employeeTel, newPasswd);
 			loginService.login(employeeTel, newPasswd, response);
 			return jsonpEntity(
 					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_SUCCESS,FIELDS.MESSAGE, "密码修改成功"), callback);
+							FIELDS.CODE_SUCCESS, FIELDS.MESSAGE, "密码修改成功"),
+					callback);
 		}
 
 		return jsonpEntity(
@@ -176,6 +184,4 @@ public class LoginController {
 						FIELDS.OLD_PASSWD_ERROR, FIELDS.MESSAGE, "旧密码错误"),
 				callback);
 	}
-
-	// TODO 找回密码
 }
