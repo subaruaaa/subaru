@@ -25,5 +25,8 @@ public class FIELDS {
 	public static final String CODE_RESET_ERROR= "-301";
 	//验证码错误
 	public static final String CODE_ERROR= "-302";
+	
+	//旧密码错误
+	public static final String OLD_PASSWD_ERROR= "-303S";
 
 }

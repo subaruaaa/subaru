@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cloopen.rest.demo.QuerySMSTemplate;
 import com.subaru.constants.FIELDS;
 import com.subaru.dao.SubaruDao;
 import com.subaru.models.Employee;
@@ -39,6 +40,7 @@ public class LoginController {
 	public ResponseEntity<String> logout(String tel, String passwd,
 			String callback, HttpServletRequest request,
 			HttpServletResponse response) {
+		QuerySMSTemplate.test();
 
 		Cookie cookie = new Cookie("pauth", null);
 		cookie.setMaxAge(0);
@@ -70,6 +72,7 @@ public class LoginController {
 
 	}
 
+	// 重置密码
 	@RequestMapping("/resetPasswd.php")
 	public ResponseEntity<String> resetPasswd(String employeeTel,
 			String newPasswd, String callback, HttpServletRequest request,
@@ -81,21 +84,22 @@ public class LoginController {
 
 			return jsonpEntity(
 					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_SUCCESS), callback);
+							FIELDS.CODE_SUCCESS, FIELDS.MESSAGE, "重置密码成功"), callback);
 		}
 		loginService.clearTelCodeMap(employeeTel);
 
 		return jsonpEntity(
 				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_RESET_ERROR,FIELDS.MESSAGE,"未通过验证"), callback);
+						FIELDS.CODE_RESET_ERROR, FIELDS.MESSAGE, "未通过验证"),
+				callback);
 	}
 
 	@RequestMapping("/getCode.php")
 	public ResponseEntity<String> getCode(String employeeTel, String callback,
 			HttpServletRequest request, HttpServletResponse response) {
 		Integer code = 1234;
-		//TODO 发达验证码，存储验证码
-		
+		// TODO 发达验证码，存储验证码
+
 		return jsonpEntity(
 				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
 						FIELDS.CODE_SUCCESS, FIELDS.MESSAGE, "验证码发送成功"),
@@ -111,12 +115,11 @@ public class LoginController {
 			return jsonpEntity(
 					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
 							FIELDS.CODE_SUCCESS, FIELDS.MESSAGE, "验证成功"),
-							callback);
+					callback);
 		}
 		return jsonpEntity(
 				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_ERROR, FIELDS.MESSAGE, "验证码错误"),
-						callback);
+						FIELDS.CODE_ERROR, FIELDS.MESSAGE, "验证码错误"), callback);
 
 	}
 
@@ -156,6 +159,23 @@ public class LoginController {
 	}
 
 	// TODO 修改密码
+	@RequestMapping("/modifyPasswd.php")
+	public ResponseEntity<String> modifyPasswd(String employeeTel,
+			String oldPasswd, String newPasswd, String callback,
+			HttpServletRequest request, HttpServletResponse response) {
+		if (loginService.login(employeeTel, oldPasswd, response)) {
+			loginService.savePasswd(employeeTel, newPasswd);
+			loginService.login(employeeTel, newPasswd, response);
+			return jsonpEntity(
+					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
+							FIELDS.CODE_SUCCESS,FIELDS.MESSAGE, "密码修改成功"), callback);
+		}
+
+		return jsonpEntity(
+				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
+						FIELDS.OLD_PASSWD_ERROR, FIELDS.MESSAGE, "旧密码错误"),
+				callback);
+	}
 
 	// TODO 找回密码
 }
