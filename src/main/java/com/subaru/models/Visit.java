@@ -14,12 +14,12 @@ public class Visit {
 	private Discount expectedDiscount;
 	// 备注
 	private String note;
-	//最后修改时间
+	// 最后修改时间
 	private String time;
 
-	public Visit(Integer id, VehicleStyle intentionVehicleStyle, Employee employee,
-			Double price, Discount discount, Discount expectedDiscount,
-			String note, String time) {
+	public Visit(Integer id, VehicleStyle intentionVehicleStyle,
+			Employee employee, Double price, Discount discount,
+			Discount expectedDiscount, String note, String time) {
 		this.id = id;
 		this.intentionVehicleStyle = intentionVehicleStyle;
 		this.employee = employee;
@@ -34,7 +34,7 @@ public class Visit {
 		this.intentionVehicleStyle = new VehicleStyle("2014款 2.0i 自动舒适版");
 		this.employee = new Employee("18695690001");
 		this.price = 23.0d;
-		this.discount = new Discount(1, 0.5f);
-		this.expectedDiscount = new Discount(1, 0.7f);
+		this.discount = new Discount("1-0.5");
+		this.expectedDiscount = new Discount("1-0.7");
 	}
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 
 //订单信息（交易完成）
 public class Order {
+	private Integer orderId;
 	private Customer customer;
 	// 订单日期
 	private String orderDate;
@@ -24,10 +25,11 @@ public class Order {
 	// 结单人员
 	private Employee employee;
 
-	public Order(Customer customer, String orderDate,
+	public Order(Integer id, Customer customer, String orderDate,
 			VehicleStyle vehicleStyle, String vehicleIdentificationNumber,
 			Float price, Float invoicePrice, Payment payment,
 			Discount discount, int purchaseQuantity, Employee employee) {
+		this.orderId = id;
 		this.customer = customer;
 		this.orderDate = orderDate;
 		this.vehicleStyle = vehicleStyle;

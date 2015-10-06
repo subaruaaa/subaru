@@ -38,25 +38,49 @@ public class OrderService {
 			Customer customer = customerService.getCustomer(info.get(
 					"customerTel").toString());
 			String orderDate = info.get("orderDate").toString();
-			VehicleStyle vehicleStyle = null;
+			VehicleStyle vehicleStyle = new VehicleStyle(Integer.valueOf(info
+					.get("vehicleStyleId").toString()));
 			String vehicleIdentificationNumber = info.get(
 					"vehicleIdentificationNumber").toString();
 			Float price = Float.valueOf(info.get("price").toString());
 			Float invoicePrice = Float.valueOf(info.get("invoicePrice")
 					.toString());
 			Payment payment = new Payment(info.get("payment").toString());
-			Discount discount = null;
+			Discount discount = new Discount(info.get("discount").toString());
 			int purchaseQuantity = Integer.valueOf(info.get("purchaseQuantity")
 					.toString());
 			Employee employee = employeeService.getEmployee(info.get(
 					"employeeTel").toString());
-			Order order = new Order(customer, orderDate, vehicleStyle,
+			Order order = new Order(id, customer, orderDate, vehicleStyle,
 					vehicleIdentificationNumber, price, invoicePrice, payment,
 					discount, purchaseQuantity, employee);
 			list.add(order);
 		}
 
 		return list;
+	}
 
+	public void createOrder(String orderDate, String customerTel,
+			int vehicleStyle, String vehicleIdentificationNumber, Float price,
+			Float invoicePrice, Payment payment, Discount discount,
+			int purchaseQuantity, String employeeTel) {
+		subaruDao.createOrder(orderDate, customerTel, vehicleStyle,
+				vehicleIdentificationNumber, price, invoicePrice, payment,
+				discount, purchaseQuantity, employeeTel);
+
+	}
+
+	public void modifyOrder(Integer id, String orderDate, String customerTel,
+			int vehicleStyle, String vehicleIdentificationNumber, Float price,
+			Float invoicePrice, Payment payment, Discount discount,
+			int purchaseQuantity, String employeeTel) {
+		subaruDao.modifyOrder(id, orderDate, customerTel, vehicleStyle,
+				vehicleIdentificationNumber, price, invoicePrice, payment,
+				discount, purchaseQuantity, employeeTel);
+
+	}
+
+	public void delOrder(int id) {
+		subaruDao.delOrder(id);
 	}
 }

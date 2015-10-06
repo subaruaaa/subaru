@@ -44,7 +44,6 @@ public class EmployeeService {
 				employee.status, employee.add, employee.position,
 				employee.store, employee.totalLose + "", employee.thisMonthLose
 						+ "");
-
 		return null;
 	}
 

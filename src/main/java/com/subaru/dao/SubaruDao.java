@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 import com.subaru.models.Customer;
+import com.subaru.models.Discount;
+import com.subaru.models.Payment;
 
 @Component
 public class SubaruDao {
@@ -62,11 +64,9 @@ public class SubaruDao {
 	}
 
 	public Map<String, Object> getEmployeeByTel(String tel) {
-		System.out.println("tel:" + tel);
 		String sql = "SELECT * FROM employee where tel = ? ";
 		List<Map<String, Object>> list = simpleJdbcTemplate.queryForList(sql,
 				tel);
-		System.out.println("list:" + list);
 		if (list.size() == 1) {
 			return list.get(0);
 		}
@@ -88,7 +88,6 @@ public class SubaruDao {
 	public void delEmployee(String tel) {
 		String sql = "DELETE FROM employee WHERE `tel` =?";
 		simpleJdbcTemplate.update(sql, tel);
-
 	}
 
 	public List<Map<String, Object>> getVisitByCustomerTel(String tel) {
@@ -107,20 +106,36 @@ public class SubaruDao {
 		return list;
 	}
 
-	// //修改
-	// public List<Map<String, Object>> getOrder(String customerTel) {
-	// String sql = "SELECT * FROM `order` WHERE customerTel = ? ";
-	// List<Map<String, Object>> list = simpleJdbcTemplate.queryForList(sql,
-	// customerTel);
-	// return list;
-	// }
-	//
-	// //删除
-	// public List<Map<String, Object>> getOrder(String customerTel) {
-	// String sql = "SELECT * FROM `order` WHERE customerTel = ? ";
-	// List<Map<String, Object>> list = simpleJdbcTemplate.queryForList(sql,
-	// customerTel);
-	// return list;
-	// }
+	public void delOrder(int id) {
+		String sql = "DELETE FROM `order` WHERE id = ?";
+		simpleJdbcTemplate.update(sql, id);
+	}
+
+	public void createOrder(String orderDate, String customerTel,
+			int vehicleStyleId, String vehicleIdentificationNumber,
+			Float price, Float invoicePrice, Payment payment,
+			Discount discount, int purchaseQuantity, String employeeTel) {
+		String sql = "INSERT INTO `order` ("
+				+ "orderDate,customerTel,vehicleStyleId,vehicleIdentificationNumber,price,invoicePrice,payment,discount,purchaseQuantity,employeeTel"
+				+ ") values(?,?,?,?,?,?,?,?,?,?) ";
+		simpleJdbcTemplate.update(sql, orderDate, customerTel, vehicleStyleId,
+				vehicleIdentificationNumber, price, invoicePrice,
+				payment.toString(), discount.toString(), purchaseQuantity,
+				employeeTel);
+	}
+
+	public void modifyOrder(Integer id, String orderDate, String customerTel,
+			int vehicleStyleId, String vehicleIdentificationNumber,
+			Float price, Float invoicePrice, Payment payment,
+			Discount discount, int purchaseQuantity, String employeeTel) {
+
+		String updateSql = "UPDATE `order` SET orderDate= ?, customerTel=?,vehicleStyleId=?,"
+				+ "vehicleIdentificationNumber=?,price=?,invoicePrice=?,payment=?,discount=?,purchaseQuantity=?,employeeTel=? WHERE id = ?";
+
+		simpleJdbcTemplate.update(updateSql, orderDate, customerTel,
+				vehicleStyleId, vehicleIdentificationNumber, price,
+				invoicePrice, payment.toString(), discount.toString(),
+				purchaseQuantity, employeeTel, id);
+	}
 
 }

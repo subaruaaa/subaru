@@ -178,7 +178,7 @@ CREATE TABLE `order` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `orderDate` varchar(255) NOT NULL,
   `customerTel` varchar(255) NOT NULL,
-  `vehicleStyle` int(10) NOT NULL,
+  `vehicleStyleId` int(10) NOT NULL,
   `vehicleIdentificationNumber` varchar(255) NOT NULL,
   `price` float(10) NOT NULL,
   `invoicePrice` float(10) NOT NULL,
@@ -189,9 +189,9 @@ CREATE TABLE `order` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-INSERT INTO `order` (`orderDate`, `customerTel`,`vehicleStyle`,`vehicleIdentificationNumber`,`price`,`invoicePrice`,`payment`,
-`discount`,`purchaseQuantity`,`employeeTel`) values ("2015-10-05", "5201314",1,"abcdefg99999",20.3,19.3,"1-建设银行-10.0","daiwanshan",2,"18695690001");
+INSERT INTO `order` (`orderDate`, `customerTel`,`vehicleStyleId`,`vehicleIdentificationNumber`,`price`,`invoicePrice`,`payment`,
+`discount`,`purchaseQuantity`,`employeeTel`) values ("2015-10-05", "5201314",1,"abcdefg99999",20.3,19.3,"1-建设银行-10.0","1-0.5",2,"18695690001");
 
-INSERT INTO `order` (`orderDate`, `customerTel`,`vehicleStyle`,`vehicleIdentificationNumber`,`price`,`invoicePrice`,`payment`,
-`discount`,`purchaseQuantity`,`employeeTel`) values ("2015-10-05", "5201314",1,"dasdasd",20.3,19.3,"1-建设银行-10.0","daiwanshan",2,"18695690001");
+INSERT INTO `order` (`orderDate`, `customerTel`,`vehicleStyleId`,`vehicleIdentificationNumber`,`price`,`invoicePrice`,`payment`,
+`discount`,`purchaseQuantity`,`employeeTel`) values ("2015-10-05", "5201314",1,"dasdasd",20.3,19.3,"1-建设银行-10.0","1-0.7",2,"18695690001");
 

@@ -30,7 +30,6 @@ public class Payment {
 
 	@Override
 	public String toString() {
-		return "Payment [type=" + type + ", mortgageBank=" + mortgageBank
-				+ ", mortgageAmount=" + mortgageAmount + "]";
+		return "" + type + "-" + mortgageBank + "-" + mortgageAmount;
 	}
 }
