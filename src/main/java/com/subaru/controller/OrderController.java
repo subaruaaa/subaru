@@ -43,7 +43,7 @@ public class OrderController {
 		String employeeTel = Common.getLoginTel(request);
 
 		// getOrder by customerTel,employeeTel, 支持其中一个没有的情况
-		List<Order> list = orderService.gerOrder(customerTel);
+		List<Order> list = orderService.gerOrders(customerTel);
 
 		return jsonpEntity(
 				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
@@ -82,7 +82,7 @@ public class OrderController {
 				discount, purchaseQuantity, employeeTel);
 
 		// getOrder by customerTel,employeeTel, 支持其中一个没有的情况
-		List<Order> list = orderService.gerOrder(customerTel);
+		List<Order> list = orderService.gerOrders(customerTel);
 
 		return jsonpEntity(
 				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
@@ -122,7 +122,7 @@ public class OrderController {
 				discount, purchaseQuantity, employeeTel);
 
 		// getOrder by customerTel,employeeTel, 支持其中一个没有的情况
-		List<Order> list = orderService.gerOrder(customerTel);
+		List<Order> list = orderService.gerOrders(customerTel);
 
 		return jsonpEntity(
 				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,

@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.subaru.constants.FIELDS;
-import com.subaru.dao.SubaruDao;
 import com.subaru.models.Employee;
 import com.subaru.services.EmployeeService;
 import com.subaru.utils.Common;
-import com.subaru.utils.HashHelper;
 import com.subaru.utils.LoginHelper;
 
 @Controller
@@ -43,7 +41,7 @@ public class EmployeeController {
 
 	// TODO 修改,修改到电话很麻烦。。。这里个人信息还好一些
 	@RequestMapping("/modifyEmployee.php")
-	public ResponseEntity<String> modifyEmployee(String name,
+	public ResponseEntity<String> modifyEmployee(Integer id, String name,
 			String email, String identificationCard, String birthday,
 			String status, String add, String position, String store,
 			String totalLose, String thisMonthLose, String callback,
@@ -54,9 +52,10 @@ public class EmployeeController {
 							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
 							FIELDS.NOT_LOGIN), callback);
 		}
-		//电话是key
+		// 电话是key
 		String employeeTel = Common.getLoginTel(request);
-		Employee employee = new Employee(name, employeeTel, email, identificationCard, birthday, status, add, position, store);
+		Employee employee = new Employee(id, name, employeeTel, email,
+				identificationCard, birthday, status, add, position, store);
 		employeeService.saveEmployee(employee);
 		employee = employeeService.getEmployee(employeeTel);
 
@@ -67,8 +66,10 @@ public class EmployeeController {
 
 	// TODO 删除
 	@RequestMapping("/delEmployee.php")
-	public ResponseEntity<String> delEmployee(@RequestParam(value = "employeeTel", required = true)String employeeTel, String callback,
-			HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<String> delEmployee(
+			@RequestParam(value = "employeeTel", required = true) String employeeTel,
+			String callback, HttpServletRequest request,
+			HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
 			return jsonpEntity(
 					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,

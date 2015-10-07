@@ -1,6 +1,7 @@
 package com.subaru.models;
 
 public class Employee {
+	public int id;
 	// 姓名
 	public String name;
 	// 电话
@@ -23,10 +24,107 @@ public class Employee {
 	public int totalLose;
 	// 当月战败次数
 	public int thisMonthLose;
+	
+	public int getId() {
+		return id;
+	}
 
-	public Employee(String name, String tel, String email,
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getIdentificationCard() {
+		return identificationCard;
+	}
+
+	public void setIdentificationCard(String identificationCard) {
+		this.identificationCard = identificationCard;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAdd() {
+		return add;
+	}
+
+	public void setAdd(String add) {
+		this.add = add;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getStore() {
+		return store;
+	}
+
+	public void setStore(String store) {
+		this.store = store;
+	}
+
+	public int getTotalLose() {
+		return totalLose;
+	}
+
+	public void setTotalLose(int totalLose) {
+		this.totalLose = totalLose;
+	}
+
+	public int getThisMonthLose() {
+		return thisMonthLose;
+	}
+
+	public void setThisMonthLose(int thisMonthLose) {
+		this.thisMonthLose = thisMonthLose;
+	}
+
+	public Employee(Integer id, String name, String tel, String email,
 			String identificationCard, String birthday, String status,
 			String add, String position, String store) {
+		this.id = id;
 		this.name = name;
 		this.tel = tel;
 		this.email = email;
@@ -37,20 +135,4 @@ public class Employee {
 		this.position = position;
 		this.store = store;
 	}
-
-	public Employee(String tel) {
-		//TODO getMessage from db
-		this.name = "赖晓航";
-		this.tel = "18695690001";
-		this.email = "laixiaohang@sina.com";
-		this.identificationCard = "35020419900427201X";
-		this.birthday = "1990-04-27";
-		this.status = "在职";
-		this.add = "北京-西城区";
-		this.position = "金牌销售";
-		this.store = "大润发店";
-		this.totalLose = 23;
-		this.thisMonthLose = 10;
-	}
-
 }

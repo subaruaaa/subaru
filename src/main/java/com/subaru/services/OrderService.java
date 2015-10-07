@@ -27,8 +27,41 @@ public class OrderService {
 	@Autowired
 	EmployeeService employeeService;
 
-	public List<Order> gerOrder(String customerTel) {
-		List<Map<String, Object>> infos = subaruDao.getOrder(customerTel);
+	public List<Order> getOrdersByEmployee(String employeeTel) {
+		List<Map<String, Object>> infos = subaruDao.getOrdersByEmployee(employeeTel);
+		if (infos == null || infos.isEmpty()) {
+			return new ArrayList<Order>();
+		}
+		List<Order> list = new ArrayList<Order>();
+		for (Map<String, Object> info : infos) {
+			int id = Integer.valueOf(info.get("id").toString());
+			Customer customer = customerService.getCustomer(info.get(
+					"customerTel").toString());
+			String orderDate = info.get("orderDate").toString();
+			VehicleStyle vehicleStyle = new VehicleStyle(Integer.valueOf(info
+					.get("vehicleStyleId").toString()));
+			String vehicleIdentificationNumber = info.get(
+					"vehicleIdentificationNumber").toString();
+			Float price = Float.valueOf(info.get("price").toString());
+			Float invoicePrice = Float.valueOf(info.get("invoicePrice")
+					.toString());
+			Payment payment = new Payment(info.get("payment").toString());
+			Discount discount = new Discount(info.get("discount").toString());
+			int purchaseQuantity = Integer.valueOf(info.get("purchaseQuantity")
+					.toString());
+			Employee employee = employeeService.getEmployee(info.get(
+					"employeeTel").toString());
+			Order order = new Order(id, customer, orderDate, vehicleStyle,
+					vehicleIdentificationNumber, price, invoicePrice, payment,
+					discount, purchaseQuantity, employee);
+			list.add(order);
+		}
+
+		return list;
+	}
+
+	public List<Order> gerOrders(String customerTel) {
+		List<Map<String, Object>> infos = subaruDao.getOrders(customerTel);
 		if (infos == null || infos.isEmpty()) {
 			return new ArrayList<Order>();
 		}
@@ -64,7 +97,7 @@ public class OrderService {
 			int vehicleStyle, String vehicleIdentificationNumber, Float price,
 			Float invoicePrice, Payment payment, Discount discount,
 			int purchaseQuantity, String employeeTel) {
-		subaruDao.createOrder(orderDate, customerTel, vehicleStyle,
+		subaruDao.addOrder(orderDate, customerTel, vehicleStyle,
 				vehicleIdentificationNumber, price, invoicePrice, payment,
 				discount, purchaseQuantity, employeeTel);
 

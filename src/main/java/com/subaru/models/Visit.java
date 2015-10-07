@@ -2,12 +2,13 @@ package com.subaru.models;
 
 public class Visit {
 	int id;
+	private Customer customer;
 	// 意向车型,存id
-	private VehicleStyle intentionVehicleStyle;
+	private int intentionVehicleStyleId;
 	// 接待人,存id
 	private Employee employee;
 	// 本次报价
-	private Double price;
+	private Float price;
 	// 优惠情况,存具体的
 	private Discount discount;
 	// 预期优惠
@@ -15,26 +16,28 @@ public class Visit {
 	// 备注
 	private String note;
 	// 最后修改时间
-	private String time;
+	private String visitTime;
 
-	public Visit(Integer id, VehicleStyle intentionVehicleStyle,
-			Employee employee, Double price, Discount discount,
+	public Visit(Integer id, Customer customer, int intentionVehicleStyleId,
+			Employee employee, Float price, Discount discount,
 			Discount expectedDiscount, String note, String time) {
 		this.id = id;
-		this.intentionVehicleStyle = intentionVehicleStyle;
+		this.customer = customer;
+		this.intentionVehicleStyleId = intentionVehicleStyleId;
 		this.employee = employee;
 		this.price = price;
 		this.discount = discount;
 		this.expectedDiscount = expectedDiscount;
 		this.note = note;
-		this.time = time;
+		this.visitTime = time;
 	}
 
-	public Visit(String employeeTel) {
-		this.intentionVehicleStyle = new VehicleStyle("2014款 2.0i 自动舒适版");
-		this.employee = new Employee("18695690001");
-		this.price = 23.0d;
-		this.discount = new Discount("1-0.5");
-		this.expectedDiscount = new Discount("1-0.7");
+	@Override
+	public String toString() {
+		return "Visit [id=" + id + ", customer=" + customer
+				+ ", intentionVehicleStyleId=" + intentionVehicleStyleId
+				+ ", employee=" + employee + ", price=" + price + ", discount="
+				+ discount + ", expectedDiscount=" + expectedDiscount
+				+ ", note=" + note + ", visitTime=" + visitTime + "]";
 	}
 }

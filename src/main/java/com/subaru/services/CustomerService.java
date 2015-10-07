@@ -16,7 +16,7 @@ public class CustomerService {
 	public Customer getCustomer(String customerTel) {
 		Map<String, Object> infos = subaruDao.getCustomerByTel(customerTel);
 		if (!infos.isEmpty()) {
-			Customer customer = new Customer(infos.get("name").toString(),
+			Customer customer = new Customer(Integer.valueOf(infos.get("id").toString()),infos.get("name").toString(),
 					infos.get("tel").toString(), infos.get("occupation")
 							.toString(), infos.get("identityCard").toString(),
 					infos.get("birthday").toString(), infos.get("email")
@@ -31,12 +31,13 @@ public class CustomerService {
 	public Customer saveCustomer(String name, String tel, String occupation,
 			String identityCard, String birthday, String email, String note,
 			String introducerType, String introducer) {
-		subaruDao.saveCustomer(name, tel, occupation, identityCard, birthday, email, note, introducerType, introducer);
+		subaruDao.saveCustomer(name, tel, occupation, identityCard, birthday,
+				email, note, introducerType, introducer);
 
 		return null;
 	}
-	
-	public void delCustomer(String customerTel){
+
+	public void delCustomer(String customerTel) {
 		subaruDao.delCustomer(customerTel);
 	}
 

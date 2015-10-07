@@ -18,6 +18,7 @@ public class EmployeeService {
 	public Employee getEmployee(String tel) {
 		Map<String, Object> infos = subaruDao.getEmployeeByTel(tel);
 		if (!infos.isEmpty()) {
+			Integer id = Integer.valueOf(infos.get("id").toString());
 			String name = infos.get("name").toString();
 			String email = infos.get("email").toString();
 			String identificationCard = infos.get("identificationCard")
@@ -31,8 +32,8 @@ public class EmployeeService {
 			String totalLose = infos.get("totalLose").toString();
 			String thisMonthLose = infos.get("thisMonthLose").toString();
 
-			return new Employee(name, tel, email, identificationCard, birthday,
-					status, add, position, store);
+			return new Employee(id, name, tel, email, identificationCard,
+					birthday, status, add, position, store);
 		} else {
 			return null;
 		}

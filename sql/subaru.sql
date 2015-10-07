@@ -50,6 +50,7 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
+   `id` int(10) NOT NULL AUTO_INCREMENT,
   `tel` varchar(255) NOT NULL DEFAULT '',
   `name` varchar(255) NOT NULL DEFAULT '',
   `occupation` varchar(255) NOT NULL DEFAULT '',
@@ -59,7 +60,8 @@ CREATE TABLE `customer` (
   `introducerType` varchar(255) NOT NULL DEFAULT '',
   `introducer` varchar(255) NOT NULL DEFAULT '',
   `note` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`tel`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tel` (`tel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -69,7 +71,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('5201213','张三','1','1','2013-01-04','laixiaohang@sina.com','1','1',''),('5201314','张三','1','1','2013-01-04','laixiaohang@sina.com','1','1','');
+INSERT INTO `customer` VALUES (1,'5201213','张三','1','1','2013-01-04','laixiaohang@sina.com','1','1','');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,6 +83,7 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employee` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `tel` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL DEFAULT '',
@@ -92,7 +95,8 @@ CREATE TABLE `employee` (
   `store` varchar(255) NOT NULL DEFAULT '',
   `totalLose` varchar(255) NOT NULL DEFAULT '',
   `thisMonthLose` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`tel`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tel` (`tel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -102,7 +106,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES ('lala','18695690001','aaa','333','111','1','1','1','2','0','0');
+INSERT INTO `employee` VALUES (1,'lala','18695690001','aaa','333','111','1','1','1','2','0','0');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,15 +143,14 @@ DROP TABLE IF EXISTS `visit`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `visit` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `customerTel`varchar(255) NOT NULL,
   `intentionVehicleStyleId` int(10) NOT NULL,
-  `employeeTel` bigint(15) NOT NULL,
+  `employeeTel`varchar(255) NOT NULL,
   `price` float NOT NULL,
-  `disCountType` int(10) NOT NULL,
-  `quota` float NOT NULL,
-  `expectedDisCountType` int(10) NOT NULL,
-  `expectedQuota` float NOT NULL,
+  `discount` varchar(255) NOT NULL,
+  `expectedDisCount` varchar(255) NOT NULL,
   `note` varchar(255) NOT NULL DEFAULT '',
-  `time` varchar(255) NOT NULL DEFAULT '',
+  `visitTime` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -158,10 +161,9 @@ CREATE TABLE `visit` (
 
 LOCK TABLES `visit` WRITE;
 /*!40000 ALTER TABLE `visit` DISABLE KEYS */;
-INSERT INTO `visit` VALUES (1,1,18695690001,25.3,1,0.6,1,0.8,'','2015-09-16 23:48'),(2,1,18695690001,25.3,1,0.6,1,0.8,'','2015-09-17 23:48');
+INSERT INTO `visit` VALUES (1,"5201314",1,"18695690001",20.5,"1-0.5","1-0.7","hello",'2015-09-17 23:48'),(2,"5201314",1,"18695690001",19.5,"1-0.5","1-0.7","hello",'2015-09-18 23:48');
 /*!40000 ALTER TABLE `visit` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

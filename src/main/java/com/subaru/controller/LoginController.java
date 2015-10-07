@@ -165,11 +165,18 @@ public class LoginController {
 	//修改密码
 	@RequestMapping("/modifyPasswd.php")
 	public ResponseEntity<String> modifyPasswd(
-			@RequestParam(value = "employeeTel", required = true) String employeeTel,
 			@RequestParam(value = "oldPasswd", required = true) String oldPasswd,
 			@RequestParam(value = "newPasswd", required = true) String newPasswd,
 			String callback, HttpServletRequest request,
 			HttpServletResponse response) {
+		if (!LoginHelper.isLogin(request)) {
+			return jsonpEntity(
+					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
+							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
+							FIELDS.NOT_LOGIN), callback);
+		}
+		String employeeTel = Common.getLoginTel(request);
+		
 		if (loginService.login(employeeTel, oldPasswd, response)) {
 			loginService.savePasswd(employeeTel, newPasswd);
 			loginService.login(employeeTel, newPasswd, response);
