@@ -51,7 +51,7 @@ public class OrderController {
 		// TODO getOrder by customerTel,employeeTel, 支持其中一个没有的情况
 		List<Order> list = orderService.gerOrders(customerId);
 		List<Order> OrderOnePage = subList(list, page_size * (page_num - 1), page_size * page_num);
-		int totalPage = list.size() / page_size + 1;
+		int totalPage = list.size() / page_size + (list.size() % page_size == 0 ? 0 : 1);
 
 		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "list", OrderOnePage, "totalPage", totalPage), callback);
 	}
@@ -188,7 +188,6 @@ public class OrderController {
 		if (mortgageAmount == null) {
 			mortgageAmount = 0.0f;
 		}
-		System.out.println("mortgageBankId:" + mortgageBankId);
 		orderService.modifyOrder(orderId, customerId, vehicleStyleId, vehicleIdentificationNumber, price, invoicePrice, discountId, quota, purchaseQuantity, employee.getEmployeeId(), paymentTypeId,
 				mortgageBankId, mortgageAmount);
 		//
