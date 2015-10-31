@@ -48,52 +48,35 @@ public class VisitController {
 
 	// // 获取接待的所有客户
 	@RequestMapping("/getCustomersAll.php")
-	public ResponseEntity<String> getCustomersAll(
-			@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
-			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num,
-			String callback, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ResponseEntity<String> getCustomersAll(@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
+			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num, String callback, HttpServletRequest request, HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
-							FIELDS.NOT_LOGIN), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE, FIELDS.NOT_LOGIN), callback);
 		}
 
 		String employeeTel = Common.getLoginTel(request);
 		Employee employee = employeeService.getEmployee(employeeTel);
 
-		List<Map<String, Object>> list = searchService
-				.searchVisitCustomerByEmployee(employee);
+		List<Map<String, Object>> list = searchService.searchVisitCustomerByEmployee(employee);
 
-		List<Map<String, Object>> customerOnePage = subList(list, page_size
-				* (page_num - 1), page_size * page_num);
+		List<Map<String, Object>> customerOnePage = subList(list, page_size * (page_num - 1), page_size * page_num);
+		int totalPage = list.size() / page_size + 1;
 
-		return jsonpEntity(
-				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, "customerOnePage", customerOnePage),
-				callback);
+		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "customerOnePage", customerOnePage, "totalPage", totalPage), callback);
 	}
 
 	// 获取已完成的客户
 	@RequestMapping("/getCustomersDone.php")
-	public ResponseEntity<String> getCustomersDone(
-			@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
-			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num,
-			String callback, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ResponseEntity<String> getCustomersDone(@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
+			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num, String callback, HttpServletRequest request, HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
-							FIELDS.NOT_LOGIN), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE, FIELDS.NOT_LOGIN), callback);
 		}
 
 		String employeeTel = Common.getLoginTel(request);
 		Employee employee = employeeService.getEmployee(employeeTel);
 
-		List<Map<String, Object>> list = searchService
-				.searchVisitCustomerByEmployee(employee);
+		List<Map<String, Object>> list = searchService.searchVisitCustomerByEmployee(employee);
 		List<Map<String, Object>> visitDone = new ArrayList<Map<String, Object>>();
 		for (Map<String, Object> l : list) {
 			if (Integer.valueOf(l.get("isDone").toString()).equals(1)) {
@@ -101,34 +84,24 @@ public class VisitController {
 			}
 		}
 
-		List<Map<String, Object>> customerOnePage = subList(visitDone, page_size
-				* (page_num - 1), page_size * page_num);
+		List<Map<String, Object>> customerOnePage = subList(visitDone, page_size * (page_num - 1), page_size * page_num);
+		int totalPage = list.size() / page_size + 1;
 
-		return jsonpEntity(
-				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, "customerOnePage", customerOnePage),
-				callback);
+		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "customerOnePage", customerOnePage, "totalPage", totalPage), callback);
 	}
-	
+
 	// 获取已完成的客户
 	@RequestMapping("/getCustomersRecently.php")
-	public ResponseEntity<String> getCustomersRecently(
-			@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
-			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num,
-			String callback, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ResponseEntity<String> getCustomersRecently(@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
+			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num, String callback, HttpServletRequest request, HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
-							FIELDS.NOT_LOGIN), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE, FIELDS.NOT_LOGIN), callback);
 		}
 
 		String employeeTel = Common.getLoginTel(request);
 		Employee employee = employeeService.getEmployee(employeeTel);
 
-		List<Map<String, Object>> list = searchService
-				.searchVisitCustomerByEmployee(employee);
+		List<Map<String, Object>> list = searchService.searchVisitCustomerByEmployee(employee);
 		List<Map<String, Object>> visitDone = new ArrayList<Map<String, Object>>();
 		for (Map<String, Object> l : list) {
 			if (Integer.valueOf(l.get("isDone").toString()).equals(0)) {
@@ -136,142 +109,88 @@ public class VisitController {
 			}
 		}
 
-		List<Map<String, Object>> customerOnePage = subList(visitDone, page_size
-				* (page_num - 1), page_size * page_num);
+		List<Map<String, Object>> customerOnePage = subList(visitDone, page_size * (page_num - 1), page_size * page_num);
+		int totalPage = list.size() / page_size + 1;
 
-		return jsonpEntity(
-				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, "customerOnePage", customerOnePage),
-				callback);
+		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "customerOnePage", customerOnePage, "totalPage", totalPage), callback);
 	}
-	
+
 	// 获取某客户的详细进店情况
 	@RequestMapping("/getVisitByCustomerId.php")
-	public ResponseEntity<String> getVisitByCustomerId(
-			@RequestParam(value = "customerId", required = true) Integer customerId,
+	public ResponseEntity<String> getVisitByCustomerId(@RequestParam(value = "customerId", required = true) Integer customerId,
 			@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
-			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num,
-			String callback, HttpServletRequest request,
-			HttpServletResponse response) {
+			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num, String callback, HttpServletRequest request, HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
-							FIELDS.NOT_LOGIN), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE, FIELDS.NOT_LOGIN), callback);
 		}
 
 		String employeeTel = Common.getLoginTel(request);
 		Customer customer = customerService.getCustomer(customerId);
 		if (customer == null) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_CUSTOMER_NOT_EXIST, FIELDS.MESSAGE,
-							"不存在此客户"), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_CUSTOMER_NOT_EXIST, FIELDS.MESSAGE, "不存在此客户"), callback);
 		}
 
 		// TODO 该客户的信息
 		List<Visit> list = visitService.getVisitByCustomerId(customerId);
-		List<Visit> visitOnePage = subList(list, page_size
-				* (page_num - 1), page_size * page_num);
+		List<Visit> visitOnePage = subList(list, page_size * (page_num - 1), page_size * page_num);
+		int totalPage = list.size() / page_size + 1;
 
-
-		return jsonpEntity(
-				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, "list", visitOnePage), callback);
+		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "list", visitOnePage, "totalPage", totalPage), callback);
 	}
 
 	@RequestMapping("/addVisit.php")
-	public ResponseEntity<String> addVisit(
-			@RequestParam(value = "customerId", required = true) Integer customerId,
-			@RequestParam(value = "intentionVehicleStyleId", required = true) Integer intentionVehicleStyleId,
-			@RequestParam(value = "price", required = true, defaultValue = "0") Float price,
-			@RequestParam(value = "discountId", required = true, defaultValue = "0") String discountId,
-			@RequestParam(value = "quota", required = true, defaultValue = "0") String quota,
+	public ResponseEntity<String> addVisit(@RequestParam(value = "customerId", required = true) Integer customerId,
+			@RequestParam(value = "intentionVehicleStyleId", required = true) Integer intentionVehicleStyleId, @RequestParam(value = "price", required = true, defaultValue = "0") Float price,
+			@RequestParam(value = "discountId", required = true, defaultValue = "0") String discountId, @RequestParam(value = "quota", required = true, defaultValue = "0") String quota,
 			@RequestParam(value = "expectedDisCountId", required = true, defaultValue = "0") String expectedDisCountId,
-			@RequestParam(value = "expectedQuota", required = true, defaultValue = "0") String expectedQuota,
-			@RequestParam(value = "note", required = true) String note,
-			@RequestParam(value = "installationId", required = true, defaultValue = "0") Integer installationId,
-			String callback, HttpServletRequest request,
-			HttpServletResponse response) {
+			@RequestParam(value = "expectedQuota", required = true, defaultValue = "0") String expectedQuota, @RequestParam(value = "note", required = true) String note,
+			@RequestParam(value = "installationId", required = true, defaultValue = "0") Integer installationId, String callback, HttpServletRequest request, HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
-							FIELDS.NOT_LOGIN), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE, FIELDS.NOT_LOGIN), callback);
 		}
 
 		String employeeTel = Common.getLoginTel(request);
-		visitService.addVisit(intentionVehicleStyleId,
-				customerService.getCustomer(customerId),
-				employeeService.getEmployee(employeeTel), price, discountId,
-				quota, expectedDisCountId, expectedQuota, note,
-				Common.GetNowDate(), installationId);
+		visitService.addVisit(intentionVehicleStyleId, customerService.getCustomer(customerId), employeeService.getEmployee(employeeTel), price, discountId, quota, expectedDisCountId, expectedQuota,
+				note, Common.GetNowDate(), installationId);
 
 		// TODO 该客户的信息
 		List<Visit> list = visitService.getVisitByCustomerId(customerId);
 
-		return jsonpEntity(
-				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, "visit", list.get(0)), callback);
+		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "visit", list.get(0)), callback);
 	}
 
 	// TODO 修改进店信息
 	@RequestMapping("/modifyVisit.php")
-	public ResponseEntity<String> modifyVisitByCustomerId(
-			@RequestParam(value = "visitId", required = true) Integer visitId,
-			@RequestParam(value = "customerId", required = true) Integer customerId,
-			@RequestParam(value = "intentionVehicleStyleId", required = true) Integer intentionVehicleStyleId,
-			@RequestParam(value = "price", required = true) Float price,
-			@RequestParam(value = "discountId", required = true) String discountId,
-			@RequestParam(value = "quota", required = true) String quota,
-			@RequestParam(value = "expectedDisCountId", required = true) String expectedDisCountId,
-			@RequestParam(value = "expectedQuota", required = true) String expectedQuota,
-			@RequestParam(value = "note", required = true) String note,
-			@RequestParam(value = "installationId", required = true) Integer installationId,
-			String callback, HttpServletRequest request,
+	public ResponseEntity<String> modifyVisitByCustomerId(@RequestParam(value = "visitId", required = true) Integer visitId, @RequestParam(value = "customerId", required = true) Integer customerId,
+			@RequestParam(value = "intentionVehicleStyleId", required = true) Integer intentionVehicleStyleId, @RequestParam(value = "price", required = true) Float price,
+			@RequestParam(value = "discountId", required = true) String discountId, @RequestParam(value = "quota", required = true) String quota,
+			@RequestParam(value = "expectedDisCountId", required = true) String expectedDisCountId, @RequestParam(value = "expectedQuota", required = true) String expectedQuota,
+			@RequestParam(value = "note", required = true) String note, @RequestParam(value = "installationId", required = true) Integer installationId, String callback, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
-							FIELDS.NOT_LOGIN), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE, FIELDS.NOT_LOGIN), callback);
 		}
 		Customer customer = customerService.getCustomer(customerId);
 		if (customer == null) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_CUSTOMER_NOT_EXIST, FIELDS.MESSAGE,
-							"不存在此客户"), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_CUSTOMER_NOT_EXIST, FIELDS.MESSAGE, "不存在此客户"), callback);
 		}
 
 		String employeeTel = Common.getLoginTel(request);
-		visitService.modifyVisit(visitId, intentionVehicleStyleId, customer,
-				employeeService.getEmployee(employeeTel), price, discountId,
-				quota, expectedDisCountId, expectedQuota, note,
+		visitService.modifyVisit(visitId, intentionVehicleStyleId, customer, employeeService.getEmployee(employeeTel), price, discountId, quota, expectedDisCountId, expectedQuota, note,
 				Common.GetNowDate(), installationId);
 		Visit visit = visitService.getVisitById(visitId);
 
-		return jsonpEntity(
-				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, "visit", visit), callback);
+		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "visit", visit), callback);
 	}
 
 	@RequestMapping("/delVisit.php")
-	public ResponseEntity<String> delVisit(
-			@RequestParam(value = "visitId", required = true) Integer visitId,
-			String callback, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ResponseEntity<String> delVisit(@RequestParam(value = "visitId", required = true) Integer visitId, String callback, HttpServletRequest request, HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
-			return jsonpEntity(
-					map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-							FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
-							FIELDS.NOT_LOGIN), callback);
+			return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE, FIELDS.NOT_LOGIN), callback);
 		}
 
 		visitService.delVisit(visitId);
 
-		return jsonpEntity(
-				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, FIELDS.MESSAGE, "删除成功"), callback);
+		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, FIELDS.MESSAGE, "删除成功"), callback);
 	}
 }

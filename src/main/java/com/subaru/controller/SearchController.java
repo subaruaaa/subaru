@@ -42,7 +42,8 @@ public class SearchController {
 
 		List<Map<String, Object>> list = searchService.searchVisitCustomerByCustomerTel(customerTel);
 		List<Map<String, Object>> customerOnePage = subList(list, page_size * (page_num - 1), page_size * page_num);
+		int totalPage = list.size() / page_size + 1;
 
-		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "list", customerOnePage), callback);
+		return jsonpEntity(map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE, FIELDS.CODE_SUCCESS, "list", customerOnePage, "totalPage", totalPage), callback);
 	}
 }
