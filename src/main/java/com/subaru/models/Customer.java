@@ -2,9 +2,9 @@ package com.subaru.models;
 
 //客户基本信息，静态的，不会每次受到修改
 public class Customer {
-	private int id;
+	private int customerId;
 	private String name;
-	private String tel;
+	private String customerTel;
 	// 职业
 	private String occupation;
 	// 身份证
@@ -12,18 +12,18 @@ public class Customer {
 	private String birthday;
 	private String email;
 	// 介绍人类型
-	private int introducerType;
+	private int introducerTypeId;
 	// 介绍人名字
 	private String introducer;
-	private Boolean blacked;
+	private Integer blacked;
 	private String note;
 	
-	public int getId() {
-		return id;
+	public int getCusomerId() {
+		return customerId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getName() {
@@ -35,11 +35,11 @@ public class Customer {
 	}
 
 	public String getTel() {
-		return tel;
+		return customerTel;
 	}
 
 	public void setTel(String tel) {
-		this.tel = tel;
+		this.customerTel = tel;
 	}
 
 	public String getOccupation() {
@@ -74,12 +74,12 @@ public class Customer {
 		this.email = email;
 	}
 
-	public int getIntroducerType() {
-		return introducerType;
+	public int getIntroducerTypeId() {
+		return introducerTypeId;
 	}
 
-	public void setIntroducerType(int introducerType) {
-		this.introducerType = introducerType;
+	public void setIntroducerTypeId(int getIntroducerTypeId) {
+		this.introducerTypeId = getIntroducerTypeId;
 	}
 
 	public String getIntroducer() {
@@ -90,14 +90,6 @@ public class Customer {
 		this.introducer = introducer;
 	}
 
-	public Boolean getBlacked() {
-		return blacked;
-	}
-
-	public void setBlacked(Boolean blacked) {
-		this.blacked = blacked;
-	}
-
 	public String getNote() {
 		return note;
 	}
@@ -106,34 +98,20 @@ public class Customer {
 		this.note = note;
 	}
 
-	public Customer(Integer id, String name, String tel, String occupation,
+	public Customer(Integer customerId, String name, String customerTel, String occupation,
 			String identityCard, String birthday, String email, String note,
-			int introducerType, String introducer, Boolean blacked) {
-		this.id = id;
+			int getIntroducerTypeId, String introducer, Integer blacked) {
+		this.customerId = customerId;
 		this.name = name;
-		this.tel = tel;
+		this.customerTel = customerTel;
 		this.occupation = occupation;
 		this.identityCard = identityCard;
 		this.birthday = birthday;
 		this.email = email;
-		this.introducerType = introducerType;
+		this.introducerTypeId = getIntroducerTypeId;
 		this.introducer = introducer;
 		this.blacked = blacked;
 		this.note = note;
-	}
-
-	// TODO 通过tel来查询顾客信息
-	public Customer(String tel) {
-		this.name = "王大锤";
-		this.tel = "5201314";
-		this.occupation = "非著名演员";
-		this.identityCard = "35020419900428220X";
-		this.birthday = "1990-04-28";
-		this.email = "wangdachui@subaru.com";
-		this.introducerType = 1;
-		this.introducer = "习大大";
-		blacked = false;
-		this.note = "非常抠门";
 	}
 
 	public boolean equals(Object other) { // 重写equals方法，后面最好重写hashCode方法
@@ -147,7 +125,7 @@ public class Customer {
 
 		final Customer customer = (Customer) other;
 
-		if (!this.tel.equals(customer.tel)) {
+		if (!this.customerTel.equals(customer.customerTel)) {
 			return false;
 		}
 
@@ -156,7 +134,7 @@ public class Customer {
 
 	public int hashCode() { // hashCode主要是用来提高hash系统的查询效率。当hashCode中不进行任何操作时，可以直接让其返回
 							// 一常数，或者不进行重写。
-		int result = tel.hashCode();
+		int result = customerTel.hashCode();
 		return result;
 	}
 }

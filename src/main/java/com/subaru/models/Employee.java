@@ -1,36 +1,36 @@
 package com.subaru.models;
 
 public class Employee {
-	public int id;
+	public Integer emplyeeId;
 	// 姓名
 	public String name;
 	// 电话
-	public String tel;
+	public String employeeTel;
 	// 邮箱
 	public String email;
 	// 身份证
-	public String identificationCard;
+	public String identityCard;
 	// 生日
 	public String birthday;
 	// 在职情况
-	public String status;
+	public Integer statusId;
 	// 地址
 	public String add;
 	// 职位
-	public String position = "position";
+	public Integer positionId;
 	// 所在店面
-	public String store = "store";
+	public Integer storeId;
 	// 累计战败次数
 	public int totalLose;
 	// 当月战败次数
 	public int thisMonthLose;
-	
-	public int getId() {
-		return id;
+
+	public Integer getEmployeeId() {
+		return emplyeeId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setEmployeeId(int emplyeeId) {
+		this.emplyeeId = emplyeeId;
 	}
 
 	public String getName() {
@@ -41,12 +41,12 @@ public class Employee {
 		this.name = name;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getEmployeeTel() {
+		return employeeTel;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setTel(String employeeTel) {
+		this.employeeTel = employeeTel;
 	}
 
 	public String getEmail() {
@@ -57,12 +57,12 @@ public class Employee {
 		this.email = email;
 	}
 
-	public String getIdentificationCard() {
-		return identificationCard;
+	public String getIdentityCard() {
+		return identityCard;
 	}
 
-	public void setIdentificationCard(String identificationCard) {
-		this.identificationCard = identificationCard;
+	public void setIdentityCard(String identityCard) {
+		this.identityCard = identityCard;
 	}
 
 	public String getBirthday() {
@@ -73,12 +73,12 @@ public class Employee {
 		this.birthday = birthday;
 	}
 
-	public String getStatus() {
-		return status;
+	public Integer getStatusId() {
+		return statusId;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
 	}
 
 	public String getAdd() {
@@ -89,20 +89,20 @@ public class Employee {
 		this.add = add;
 	}
 
-	public String getPosition() {
-		return position;
+	public Integer getPositionId() {
+		return positionId;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setPositionId(Integer positionId) {
+		this.positionId = positionId;
 	}
 
-	public String getStore() {
-		return store;
+	public Integer getStoreId() {
+		return storeId;
 	}
 
-	public void setStore(String store) {
-		this.store = store;
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
 	}
 
 	public int getTotalLose() {
@@ -121,18 +121,28 @@ public class Employee {
 		this.thisMonthLose = thisMonthLose;
 	}
 
-	public Employee(Integer id, String name, String tel, String email,
-			String identificationCard, String birthday, String status,
-			String add, String position, String store) {
-		this.id = id;
+	public Employee(Integer emplyeeId, String name, String employeeTel,
+			String email, String identityCard, String birthday,
+			Integer statusId, String add, Integer positionId, Integer storeId) {
+		this.emplyeeId = emplyeeId;
 		this.name = name;
-		this.tel = tel;
+		this.employeeTel = employeeTel;
 		this.email = email;
-		this.identificationCard = identificationCard;
+		this.identityCard = identityCard;
 		this.birthday = birthday;
-		this.status = status;
+		this.statusId = statusId;
 		this.add = add;
-		this.position = position;
-		this.store = store;
+		this.positionId = positionId;
+		this.storeId = storeId;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [emplyeeId=" + emplyeeId + ", name=" + name
+				+ ", employeeTel=" + employeeTel + ", email=" + email
+				+ ", identityCard=" + identityCard + ", birthday=" + birthday
+				+ ", statusId=" + statusId + ", add=" + add + ", positionId="
+				+ positionId + ", storeId=" + storeId + ", totalLose="
+				+ totalLose + ", thisMonthLose=" + thisMonthLose + "]";
 	}
 }

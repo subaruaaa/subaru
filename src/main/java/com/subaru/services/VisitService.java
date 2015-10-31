@@ -22,28 +22,32 @@ public class VisitService {
 	@Autowired
 	CustomerService customerService;
 
-	// 获取某人的访问列表
-	public List<Visit> getVisitByCustomerTel(String customerTel) {
+	// 获取客户的访问列表
+	public List<Visit> getVisitByCustomerId(Integer customerId) {
 		List<Map<String, Object>> results = subaruDao
-				.getVisitByCustomerTel(customerTel);
+				.getVisitByCustomerId(customerId);
 		List<Visit> list = new ArrayList<Visit>();
 		for (Map<String, Object> result : results) {
-			Integer id = Integer.valueOf(result.get("id").toString());
-			Customer customer = customerService.getCustomer(customerTel);
+			Integer visitId = Integer.valueOf(result.get("visitId").toString());
+			Customer customer = customerService.getCustomer(customerId);
 			Integer intentionVehicleStyleId = Integer.valueOf(result.get(
 					"intentionVehicleStyleId").toString());
-			Employee employee = employeeService.getEmployee(result.get(
-					"employeeTel").toString());
+			Employee employee = employeeService.getEmployee(Integer
+					.parseInt(result.get("employeeId").toString()));
 			Float price = Float.valueOf(result.get("price").toString());
-			Discount discount = new Discount(result.get("discount").toString());
-			Discount expectedDiscount = new Discount(result.get(
-					"expectedDiscount").toString());
+			String discountId = result.get("discountId").toString();
+			String quota = result.get("quota").toString();
+			String expectedDisCountId = result.get("expectedDisCountId")
+					.toString();
+			String expectedQuota = result.get("expectedQuota").toString();
 			String note = result.get("note").toString();
 			String visitTime = result.get("visitTime").toString();
+			Integer installationId = Integer.valueOf(result.get(
+					"installationId").toString());
 
-			Visit visit = new Visit(id, customer, intentionVehicleStyleId,
-					employee, price, discount, expectedDiscount, note,
-					visitTime);
+			Visit visit = new Visit(visitId, customer, intentionVehicleStyleId,
+					employee, price, discountId, quota, expectedDisCountId,
+					expectedQuota, note, visitTime, installationId);
 			list.add(visit);
 		}
 
@@ -52,41 +56,50 @@ public class VisitService {
 
 	// 增加一条访问记录
 	public void addVisit(Integer intentionVehicleStyleId, Customer customer,
-			Employee employee, Float price, Discount discount,
-			Discount expectedDiscount, String note, String visitTime) {
+			Employee employee, Float price, String discountId, String quota,
+			String expectedDisCountId, String expectedQuota, String note,
+			String visitTime, Integer installationId) {
 		subaruDao.addVisit(intentionVehicleStyleId, customer, employee, price,
-				discount, expectedDiscount, note, visitTime);
+				discountId, quota, expectedDisCountId, expectedQuota, note,
+				visitTime, installationId);
 	}
 
 	// 修改某条访问列表
-	public void modifyVisit(Integer id, Integer intentionVehicleStyleId,
+	public void modifyVisit(Integer visitId, Integer intentionVehicleStyleId,
 			Customer customer, Employee employee, Float price,
-			Discount discount, Discount expectedDiscount, String note,
-			String visitTime) {
-		subaruDao.modifyVisit(id, intentionVehicleStyleId, customer, employee,
-				price, discount, expectedDiscount, note, visitTime);
+			String discountId, String quota, String expectedDisCountId,
+			String expectedQuota, String note, String visitTime,
+			Integer installationId) {
+		subaruDao.modifyVisit(visitId, intentionVehicleStyleId, customer,
+				employee, price, discountId, quota, expectedDisCountId,
+				expectedQuota, note, visitTime, installationId);
 	}
 
-	public Visit getVisitById(Integer id) {
-		List<Map<String, Object>> results = subaruDao.getVisitById(id);
+	public Visit getVisitById(Integer visitId) {
+		List<Map<String, Object>> results = subaruDao.getVisitById(visitId);
 		if (results.size() == 1) {
 			Map<String, Object> result = results.get(0);
-			Customer customer = customerService.getCustomer(result.get(
-					"customerTel").toString());
+			Customer customer = customerService.getCustomer(Integer
+					.parseInt(result.get("customerId").toString()));
 			Integer intentionVehicleStyleId = Integer.valueOf(result.get(
 					"intentionVehicleStyleId").toString());
-			Employee employee = employeeService.getEmployee(result.get(
-					"employeeTel").toString());
+			Employee employee = employeeService.getEmployee(Integer
+					.parseInt(result.get("employeeId").toString()));
 			Float price = Float.valueOf(result.get("price").toString());
-			Discount discount = new Discount(result.get("discount").toString());
-			Discount expectedDiscount = new Discount(result.get(
-					"expectedDiscount").toString());
+			String discountId = result.get("discountId").toString();
+			String quota = result.get("quota").toString();
+			String expectedDisCountId = result.get("expectedDisCountId")
+					.toString();
+			String expectedQuota = result.get("expectedQuota").toString();
+
 			String note = result.get("note").toString();
 			String visitTime = result.get("visitTime").toString();
+			Integer installationId = Integer.valueOf(result.get(
+					"installationId").toString());
 
-			Visit visit = new Visit(id, customer, intentionVehicleStyleId,
-					employee, price, discount, expectedDiscount, note,
-					visitTime);
+			Visit visit = new Visit(visitId, customer, intentionVehicleStyleId,
+					employee, price, discountId, quota, expectedDisCountId,
+					expectedQuota, note, visitTime, installationId);
 			return visit;
 		}
 
@@ -94,8 +107,8 @@ public class VisitService {
 	}
 
 	// 删除某条列表
-	public void delVisit(Integer id) {
-		subaruDao.delVisit(id);
+	public void delVisit(Integer visitId) {
+		subaruDao.delVisit(visitId);
 	}
 
 }

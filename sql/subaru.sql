@@ -197,3 +197,46 @@ INSERT INTO `order` (`orderDate`, `customerTel`,`vehicleStyleId`,`vehicleIdentif
 INSERT INTO `order` (`orderDate`, `customerTel`,`vehicleStyleId`,`vehicleIdentificationNumber`,`price`,`invoicePrice`,`payment`,
 `discount`,`purchaseQuantity`,`employeeTel`) values ("2015-10-05", "5201314",1,"dasdasd",20.3,19.3,"1-建设银行-10.0","1-0.7",2,"18695690001");
 
+DROP TABLE IF EXISTS `store`;
+CREATE TABLE `store` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `store` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `store` (`store`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `store` (`store`) values ("厦门店");
+INSERT INTO `store` (`store`) values ("集美店");
+INSERT INTO `store` (`store`) values ("海沧总部");
+INSERT INTO `store` (`store`) values ("泉州店");
+INSERT INTO `store` (`store`) values ("漳州店");
+INSERT INTO `store` (`store`) values ("福州店");
+
+DROP TABLE IF EXISTS `position`;
+CREATE TABLE `position` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `position` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `position` (`position`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `position` (`position`) values ("销售经理");
+INSERT INTO `position` (`position`) values ("销售主管");
+INSERT INTO `position` (`position`) values ("海沧总部");
+INSERT INTO `position` (`position`) values ("后勤保障");
+INSERT INTO `position` (`position`) values ("财务");
+INSERT INTO `position` (`position`) values ("财务经理");
+
+DROP TABLE IF EXISTS `introducerType`;
+CREATE TABLE `introducerType` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `introducerType` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `introducerType` (`introducerType`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `introducerType` (`introducerType`) values ("政府高管");
+INSERT INTO `introducerType` (`introducerType`) values ("企业高管");
+INSERT INTO `introducerType` (`introducerType`) values ("员工亲戚");
+
+

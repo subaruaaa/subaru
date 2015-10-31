@@ -20,8 +20,8 @@ public class LoginService {
 	public static String salt = "laixiaohang";
 	// 修改密码的时间
 	Map<String, Long> tel_codetime = new HashMap<String, Long>();
-	
-	public void setCodetime(String employeeTel){
+
+	public void setCodetime(String employeeTel) {
 		tel_codetime.put(employeeTel, System.currentTimeMillis());
 	}
 
@@ -43,6 +43,7 @@ public class LoginService {
 	public boolean login(String employeeTel, String passwd,
 			HttpServletResponse response) {
 		String md5Passwd = HashHelper.md5(passwd + salt);
+		System.out.println(employeeTel + "\t" + md5Passwd);
 		if (subaruDao.getMd5Passwd(employeeTel, md5Passwd).size() == 1) {
 			Cookie cookie = new Cookie("pauth", employeeTel + "|" + passwd
 					+ "|" + md5Passwd);
@@ -57,5 +58,9 @@ public class LoginService {
 	public void savePasswd(String employeeTel, String newPasswd) {
 		newPasswd = HashHelper.md5(newPasswd + LoginService.salt);
 		subaruDao.saveMd5Passwd(employeeTel, newPasswd);
+	}
+
+	public void updatePasswdTel(String employeeTelOld, String employeeTelNew) {
+		subaruDao.updatePasswdTel(employeeTelOld, employeeTelNew);
 	}
 }

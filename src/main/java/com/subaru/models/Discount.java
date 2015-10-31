@@ -10,7 +10,7 @@ public class Discount {
 			put(2, "送装备");
 		}
 	};
-
+	
 	// 优惠类型
 	private int disCountType;
 	private String type;
