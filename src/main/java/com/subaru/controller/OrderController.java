@@ -1,6 +1,7 @@
 package com.subaru.controller;
 
 import static com.subaru.types.functions.map;
+import static com.subaru.types.functions.subList;
 import static com.subaru.utils.JsonHelper.jsonpEntity;
 
 import java.util.List;
@@ -41,6 +42,8 @@ public class OrderController {
 	@RequestMapping("/getOrders.php")
 	public ResponseEntity<String> getOrders(
 			@RequestParam(value = "customerId", required = true) Integer customerId,
+			@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
+			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num,
 			String callback, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
@@ -53,10 +56,11 @@ public class OrderController {
 
 		// TODO getOrder by customerTel,employeeTel, 支持其中一个没有的情况
 		List<Order> list = orderService.gerOrders(customerId);
+		List<Order> OrderOnePage = subList(list, page_size * (page_num - 1), page_size * page_num);
 
 		return jsonpEntity(
 				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, "list", list), callback);
+						FIELDS.CODE_SUCCESS, "list", OrderOnePage), callback);
 	}
 
 	@RequestMapping("/createOrder.php")

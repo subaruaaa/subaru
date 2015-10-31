@@ -145,45 +145,12 @@ public class VisitController {
 				callback);
 	}
 	
-	// // 近期在跟
-	// @RequestMapping("/getCustomersRecently.php")
-	// public ResponseEntity<String> getVisitRecently(
-	// @RequestParam(value = "page_size", defaultValue =
-	// FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
-	// @RequestParam(value = "page_num", defaultValue =
-	// FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num,
-	// String callback, HttpServletRequest request,
-	// HttpServletResponse response) {
-	// if (!LoginHelper.isLogin(request)) {
-	// return jsonpEntity(
-	// map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-	// FIELDS.CODE_NOT_LOGIN, FIELDS.MESSAGE,
-	// FIELDS.NOT_LOGIN), callback);
-	// }
-	//
-	// String employeeTel = Common.getLoginTel(request);
-	// List<Order> orders = orderService.getOrdersByEmployee(employeeTel);
-	//
-	// // TODO 获取接待的所有客户
-	// List<Customer> customers = new ArrayList<Customer>();
-	// for (Order order : orders) {
-	// if (!customers.contains(order.getCustomer())) {
-	// customers.add(order.getCustomer());
-	// }
-	// }
-	//
-	// // TODO 加入访问的客户信息
-	// List<Customer> customerOnePage = subList(customers, page_size
-	// * (page_num - 1), page_size * page_num);
-	// return jsonpEntity(
-	// map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-	// FIELDS.CODE_SUCCESS, "customers", customers), callback);
-	// }
-
-	// 获取某客户的
+	// 获取某客户的详细进店情况
 	@RequestMapping("/getVisitByCustomerId.php")
 	public ResponseEntity<String> getVisitByCustomerId(
 			@RequestParam(value = "customerId", required = true) Integer customerId,
+			@RequestParam(value = "page_size", defaultValue = FIELDS.DEFAULT_PAGE_SIZE_STR) Integer page_size,
+			@RequestParam(value = "page_num", defaultValue = FIELDS.DEFAULT_PAGE_NUM_STR) Integer page_num,
 			String callback, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (!LoginHelper.isLogin(request)) {
@@ -204,10 +171,13 @@ public class VisitController {
 
 		// TODO 该客户的信息
 		List<Visit> list = visitService.getVisitByCustomerId(customerId);
+		List<Visit> visitOnePage = subList(list, page_size
+				* (page_num - 1), page_size * page_num);
+
 
 		return jsonpEntity(
 				map(FIELDS.STATUS, FIELDS.SUCCESS, FIELDS.CODE,
-						FIELDS.CODE_SUCCESS, "list", list), callback);
+						FIELDS.CODE_SUCCESS, "list", visitOnePage), callback);
 	}
 
 	@RequestMapping("/addVisit.php")
