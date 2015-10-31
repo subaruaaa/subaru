@@ -1,0 +1,256 @@
+/*c-btn*/
+	.c-btn-primary,
+	.c-btn-success,
+	.c-btn-link{
+		display: block;
+		height: 44px;
+		line-height: 44px;
+		border: 0;
+		-webkit-border-radius:5px;
+		font-size: 18px;
+		text-align: center;
+		text-decoration: none;
+		color: #fff;
+	}
+
+	input.c-btn-primary,
+	input.c-btn-success,
+	input.c-btn-link,
+	button.c-btn-primary,
+	button.c-btn-success,
+	button.c-btn-link{
+		width: 100%;
+		-webkit-box-sizing:border-box;
+	}
+
+	.c-btn-primary{background-color: #2e9deb;}
+	.c-btn-success{background-color: #29e663;}
+	.c-btn-link{color: #2d7aab;}
+
+	.c-btn-success.disabled{
+		background-color: #b5b5b5;
+	}
+
+/*c-text*/
+	.c-text-primary{
+		color: #2e9deb;
+	}
+
+	.c-text-success{
+		color: #29e663;
+	}
+
+	.c-text-warning{
+		color: #ff6633;
+	}
+
+	.c-text-danger{
+		color: #cf3535 !important;
+	}
+
+/*c-tab*/
+
+	.c-tab{
+		border:2px solid #358ccf;
+		-webkit-border-radius:5px;
+		overflow: hidden;
+		margin: 15px 20px;
+	}
+
+	.c-tab a{
+		float: left;
+		font-size: 12px;
+		color: #358ccf;
+		text-align: center;
+		line-height: 28px;
+	}
+
+	.c-tab .active{
+		color: #fff;
+		background-color: #358ccf;
+	}
+
+	.c-tab-three a{
+		width: 33.33%;
+	}
+
+/*c-loader*/
+	.c-loader{
+		text-align: center;
+		font-size: 12px;
+		margin: 20px 0;
+	}
+
+	.c-loader.done{
+		color: #666;
+	}
+
+	.c-loader.doing{
+		color: #a7a8a7;
+	}
+
+	.c-loader.doing i{
+		height : 20px;
+		width : 20px;
+		border : 2px solid #44e46a;
+		border-left-color : transparent;
+		border-right-color : transparent;
+		display: block;
+		margin: 0 auto 10px auto;
+		-webkit-border-radius : 50%;
+		-webkit-animation : loader 2s infinite;
+	}
+
+	.c-loader-popup{
+		position: fixed;
+		top: 0;
+		width: 100%;
+		bottom: 0;
+		background: rgba(0,0,0,.9);
+		margin: 0;
+		display: none;
+		z-index: 999;
+	}
+
+	.c-loader-popup.doing{
+		display: block;
+	}
+
+	.c-loader-popup.doing i{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -12px;
+		margin-top: -12px;
+	}
+
+	.c-loader-popup p{
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		color: #fff;
+		margin-top: 30px;
+	}
+
+	@-webkit-keyframes loader {
+	  0% {-webkit-transform : rotate(0deg);}
+	  50% {-webkit-transform : rotate(360deg);}
+	  100% {-webkit-transform : rotate(0deg);}
+	}
+
+/*c-search*/
+	.c-search{
+		border:2px solid #358ccf;
+		-webkit-border-radius:5px;
+		overflow: hidden;
+		margin: 15px 20px;
+		position: relative;
+	}
+	.c-search input{
+		height: 28px;
+		display: block;
+		-webkit-box-sizing:border-box;
+		width: 100%;
+		border:0;
+		padding-right: 38px;
+		padding-left: 10px;
+		color: #666;
+	}
+	.c-search button{
+		height: 28px;
+		width: 28px;
+		background: url(../images/i-search.png) no-repeat center center;
+		-webkit-background-size:16px 16px;
+		border:0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+/*c-confirm*/
+	.c-confirm{
+		position: fixed;
+		top: 0;
+		width: 100%;
+		bottom: 0;
+		background: rgba(0,0,0,.9);
+		margin: 0;
+		display: none;
+		z-index: 999;
+	}
+
+	.c-confirm.show{
+		display: block;
+	}
+
+	.c-confirm .content{
+		width: 210px;
+		height: 110px;
+		background-color: #fff;
+		-webkit-border-radius:5px;
+		overflow: hidden;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -55px;
+		margin-left: -105px;
+		display: table;
+	}
+
+	.c-confirm .title{
+		color: #358ccf;
+		text-align: center;
+		height: 69px;
+		line-height: 69px;
+		overflow: hidden;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.c-confirm .action{
+		overflow: hidden;
+	}
+
+	.c-confirm .action a{
+		width: 50%;
+		-webkit-box-sizing:border-box;
+		text-align: center;
+		float: left;
+		height: 40px;
+		line-height: 40px;
+		font-size: 15px;
+		color: #969696;
+	}
+
+	.c-confirm .action .confirm{
+		border-right: 1px solid #ddd;
+		color: #358ccf;
+	}
+
+/*c-alert*/
+	
+	.c-alert{
+		position: fixed;
+		width: 210px;
+		height: 30px;
+		line-height: 30px;
+		-webkit-border-radius:5px;
+		overflow: hidden;
+		top: 50%;
+		left: 50%;
+		margin-top: -15px;
+		margin-left: -105px;
+		z-index: 999;
+		background: rgba(0,0,0,.7);
+		text-align: center;
+		color: #fff;
+	}
+
+	.c-alert-error{
+		background: rgba(200,0,0,.7);
+	}
+
+	.c-alert-success{
+		background: rgba(0,99,19,.7);
+	}

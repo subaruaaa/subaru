@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>车行——找回密码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="email=no,telephone=no" name="format-detection" />
+    <link href="css/frame.css" rel="stylesheet"/>
+    <link href="css/component.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/page.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div class="f-sign">
+        <h1>车行</h1>
+
+        <form class="m-form-sign" id="j-findpwform">
+            <div class="textinput textinput-user">
+                <input type="text" placeholder="请输入账号" id="j-username">
+                <i></i>
+            </div>
+
+            <div class="textinput textinput-captcha">
+                <input type="text" placeholder="请输入验证码" id="j-captcha">
+                <i></i>
+
+                <a class="c-btn-success" href="#" id="j-sendbtn">发送验证码</a>
+            </div>
+
+            <button type="submit" class="c-btn-primary">找回密码</button>
+            <a class="c-btn-link" href="index.html">返回登录</a>
+        </form>
+    </div>
+    <script type="text/javascript" src="js/lib/zepto.custom.js"></script>
+    <script type="text/javascript" src="js/lib/fastclick.js"></script>
+    <script type="text/javascript" src="js/lib/hammer.js"></script>
+    <script type="text/javascript" src="js/lib/baiduTemplate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/findpw.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            Car.Findpw.init();
+        })
+    </script>
+</body>
+</html>

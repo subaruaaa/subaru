@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>车行——员工信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="email=no,telephone=no" name="format-detection" />
+    <link href="css/frame.css" rel="stylesheet"/>
+    <link href="css/component.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/page.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div class="f-page p-customer">
+        <header class="f-header">
+            <h1 class="heading">员工信息</h1>
+            <a class="btn-left" href="home.html">返回</a>
+            <a class="btn-right" id="j-editBtn" href="#">修改</a>
+            <a class="btn-right c-text-danger" style="display:none;" id="j-cancelBtn" href="#">取消</a>
+        </header>
+
+        <section id="j-profile"></section>
+
+        <script type="text/tmpl" id="j-profileTmpl">
+            <div class="m-listview">
+                <div class="list">
+                    <dl class="item">
+                        <dt class="label">姓名</dt>
+                        <dd class="field"><%= name %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">电话</dt>
+                        <dd class="field"><%= employeeTel %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">身份证</dt>
+                        <dd class="field"><%= identificationCard %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">生日</dt>
+                        <dd class="field"><%= birthday %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">邮箱</dt>
+                        <dd class="field"><%= email %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">在职情况</dt>
+                        <dd class="field"><%= Car.Common.getConfigItem("statusList", statusId, "statusId").status %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">岗位</dt>
+                        <dd class="field"><%= Car.Common.getConfigItem("positionList", positionId, "positionId").position %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">地址</dt>
+                        <dd class="field"><%= add %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">所在店</dt>
+                        <dd class="field"><%= Car.Common.getConfigItem("storeList", storeId, "storeId").store %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">当月战败</dt>
+                        <dd class="field"><strong class="c-text-danger"><%= thisMonthLose %></strong> 次</dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">历史战败</dt>
+                        <dd class="field"><strong class="c-text-danger"><%= totalLose %></strong> 次</dd>
+                    </dl>
+
+                    <dl class="item">
+                        <dt class="label"></dt>
+                        <dd class="field"><a href="editpw.html" class="c-text-primary">修改密码</a></dd>
+                    </dl>
+                </div>
+            </div>
+        </script>
+        
+        <script type="text/tmpl" id="j-profileEditTmpl">
+            <form class="m-listview m-listview-form" id="j-profileEditForm">
+                <div class="list">
+                    <dl class="item">
+                        <dt class="label">姓名</dt>
+                        <dd class="field">
+                            <input name="name" value="<%= name %>" />
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">电话</dt>
+                        <dd class="field">
+                            <input name="employeeTel" value="<%= employeeTel %>" />
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">身份证</dt>
+                        <dd class="field"><input name="identificationCard" value="<%= identificationCard %>" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">生日</dt>
+                        <dd class="field"><input name="birthday" type="date" value="<%= birthday %>" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">邮箱</dt>
+                        <dd class="field"><input name="email" value="<%= email %>" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">在职情况</dt>
+                        <dd class="field">
+                            <select name="statusId">
+                                <option value="">请选择</option>
+                                <% for(var i = 0; i < CONFIG.statusList.length; i++){ %>>
+                                    <% var item = CONFIG.statusList[i]; %>
+                                    <option value="<%= item.statusId %>" <%= (statusId == item.statusId ? "selected" : "") %>><%= item.status %></option>
+                                <% } %>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">岗位</dt>
+                        <dd class="field">
+                            <select name="positionId">
+                                <option value="">请选择</option>
+                                <% for(var i = 0; i < CONFIG.positionList.length; i++){ %>>
+                                    <% var item = CONFIG.positionList[i]; %>
+                                    <option value="<%= item.positionId %>" <%= (positionId == item.positionId ? "selected" : "") %>><%= item.position %></option>
+                                <% } %>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">地址</dt>
+                        <dd class="field"><input name="add" value="<%= add %>" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">所在店</dt>
+                        <dd class="field">
+                            <select name="storeId">
+                                <option value="">请选择</option>
+                                <% for(var i = 0; i < CONFIG.storeList.length; i++){ %>>
+                                    <% var item = CONFIG.storeList[i]; %>
+                                    <option value="<%= item.storeId %>" <%= (storeId == item.storeId ? "selected" : "") %>><%= item.store %></option>
+                                <% } %>
+                            </select>
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="action">
+                    <button class="c-btn-primary">保存</button>
+                </div>
+            </form>
+        </script>
+        
+    </div>
+    <script type="text/javascript" src="js/lib/zepto.custom.js"></script>
+    <script type="text/javascript" src="js/lib/fastclick.js"></script>
+    <script type="text/javascript" src="js/lib/hammer.js"></script>
+    <script type="text/javascript" src="js/lib/baiduTemplate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/profile.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            Car.Profile.init();
+        })
+    </script>
+</body>
+</html>

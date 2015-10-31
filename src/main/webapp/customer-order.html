@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>车行——结单信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="email=no,telephone=no" name="format-detection" />
+    <link href="css/frame.css" rel="stylesheet"/>
+    <link href="css/component.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/page.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div class="f-page p-customer">
+        <header class="f-header">
+            <h1 class="heading">销售情况</h1>
+            <a class="btn-left" href="#">返回</a>
+            <a class="btn-right j-addBtn" href="#">添加</a>
+        </header>
+
+        <script type="text/tmpl" id="j-navTmpl">
+            <% if(customerId > 0){ var param = "?customerId=" + customerId} %>
+            <a href="customer.html<%= param %>">基本信息</a>
+            <a href="customer-history.html<%= param %>">进店信息</a>
+            <a class="active" href="customer-order.html<%= param %>">结单信息</a>
+        </script>
+
+        <nav class="c-tab c-tab-three"  id="j-nav"></nav>
+        
+        <section id="j-customerHistory"></section>
+        
+        <script type="text/tmpl" id="j-customerHistoryTmpl">
+            <% for(var i = 0, item; i < list.length; i++){ %>
+                <% item = list[i]; %>
+                <div class="m-listview" data-orderId="<%= item.orderId %>">
+                    <header class="header">
+                        <h2 class="heading"><i></i><%= item.orderDate %></h2>
+                        <div class="action">
+                            <a href="" class="c-text-primary j-editBtn">修改</a>
+                        </div>
+                    </header>
+
+                    <div class="list">
+                        <dl class="item">
+                            <dt class="label">车型</dt>
+                            <dd class="field"><%= Car.Common.getConfigItem("vehicleList", item.vehicleStyleId, "vehicleStyleId").vehicleStyle %></dd>
+                        </dl>
+                        <dl class="item">
+                            <dt class="label">车架号</dt>
+                            <dd class="field"><%= item.vehicleIdentificationNumber %></dd>
+                        </dl>
+                        <dl class="item">
+                            <dt class="label">车身价</dt>
+                            <dd class="field"><%= item.price %>万</dd>
+                        </dl>
+                        <dl class="item">
+                            <dt class="label">开票价</dt>
+                            <dd class="field"><%= item.invoicePrice %>万</dd>
+                        </dl>
+                        <dl class="item">
+                            <dt class="label">购买方式</dt>
+                            <dd class="field"><%= Car.Common.getConfigItem("paymentTypeList", item.paymentTypeId, "paymentTypeId").paymentType %> <%= Car.Common.getConfigItem("mortgageBankList", item.mortgageBankId, "mortgageBankId").mortgageBank %> <span style="display:<%= Car.Common.getConfigItem("paymentTypeList", item.paymentTypeId, "paymentTypeId").showBank ? 'inline' : 'none' %>;"><%= item.mortgageAmount %>万</span></dd>
+                        </dl>
+                        <dl class="item">
+                            <dt class="label">结单人</dt>
+                            <dd class="field"><%= item.employeeId %></dd>
+                        </dl>
+                        <dl class="item">
+                            <dt class="label">优惠情况</dt>
+                            <dd class="field"><%= Car.Common.getConfigItem("discountTypeList", item.discountId, "discountId").discountValue %> <%= item.quota %><%= Car.Common.getConfigItem("discountTypeList", item.discountId, "discountId").unit %></dd>
+                        </dl>
+                        <dl class="item">
+                            <dt class="label">数量</dt>
+                            <dd class="field"><%= item.purchaseQuantity %></dd>
+                        </dl>
+                    </div>
+                </div>
+            <% } %>
+
+            <% if(list.length == 0){ %>
+                <div class="m-nodata">
+                    <div class="c-loader done">
+                        <p>该客户还没有结单信息</p>
+                    </div>
+                    <a href="#" class="c-btn-primary j-addBtn">添加结单信息</a>
+                </div>
+            <% } %>
+        </script>
+
+        <script type="text/tmpl" id="j-customerHistoryFormTmpl">
+            <form class="m-listview m-listview-form" id="j-Form">
+                <header class="header">
+                    <h2 class="heading"><i></i><%= data.orderDate %></h2>
+                    <div class="action">
+                        <a href="" class="c-text-danger j-cancelBtn">取消</a>
+                    </div>
+                </header>
+
+                <div class="list">
+                    <dl class="item">
+                        <dt class="label auto">车型</dt>
+                        <dd class="field">
+                            <select name="vehicleStyleId">
+                                <option value="">请选择</option>
+                                <% for(var i = 0; i < CONFIG.vehicleList.length; i++){ %>>
+                                    <% var item = CONFIG.vehicleList[i]; %>
+                                    <option value="<%= item.vehicleStyleId %>" <%= (data.vehicleStyleId == item.vehicleStyleId ? "selected" : "") %>><%= item.vehicleStyle %></option>
+                                <% } %>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">车架号</dt>
+                        <dd class="field"><input name="vehicleIdentificationNumber" value="<%= data.vehicleIdentificationNumber %>" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">车身价</dt>
+                        <dd class="field"><input name="price" value="<%= data.price %>" /><span class="unit">万</span></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">开票价</dt>
+                        <dd class="field"><input name="invoicePrice" value="<%= data.invoicePrice %>" /><span class="unit">万</span></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label auto">购买方式</dt>
+                        <dd class="field">
+                            <select name="paymentTypeId" class="j-select1">
+                                <option value="">请选择</option>
+                                <% for(var i = 0; i < CONFIG.paymentTypeList.length; i++){ %>>
+                                    <% var item = CONFIG.paymentTypeList[i]; %>
+                                    <option value="<%= item.paymentTypeId %>" <%= (data.paymentTypeId == item.paymentTypeId ? "selected" : "") %>><%= item.paymentType %></option>
+                                <% } %>
+                            </select>
+                        </dd>
+                        <dd class="field j-select1-field" style="display:<%= Car.Common.getConfigItem("paymentTypeList", data.paymentTypeId, "paymentTypeId").showBank ? 'block' : 'none' %>;">
+                            <select name="mortgageBankId">
+                                <option value="">请选择</option>
+                                <% for(var i = 0; i < CONFIG.mortgageBankList.length; i++){ %>>
+                                    <% var item = CONFIG.mortgageBankList[i]; %>
+                                    <option value="<%= item.mortgageBankId %>" <%= (data.mortgageBankId == item.mortgageBankId ? "selected" : "") %>><%= item.mortgageBank %></option>
+                                <% } %>
+                            </select>
+                        </dd>
+                        <dd class="field j-select1-field" style="display:<%= Car.Common.getConfigItem("paymentTypeList", data.paymentTypeId, "paymentTypeId").showBank ? 'block' : 'none' %>;"><input name="mortgageAmount" value="<%= data.mortgageAmount %>" /><span class="unit">万</span></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label auto">优惠情况</dt>
+                        <dd class="field">
+                            <select name="discountId" class="j-select">
+                                <option value="">请选择</option>
+                                <% for(var i = 0; i < CONFIG.discountTypeList.length; i++){ %>>
+                                    <% var item = CONFIG.discountTypeList[i]; %>
+                                    <option value="<%= item.discountId %>" <%= (data.discountId == item.discountId ? "selected" : "") %>><%= item.discountValue %></option>
+                                <% } %>
+                            </select>
+                        </dd>
+                        <dd class="field" style="display:<%= Car.Common.getConfigItem("discountTypeList", data.discountId, "discountId").unit ? 'block' : 'none' %>;">
+                            <input name="quota" value="<%= data.quota %>" /><span class="unit"><%= Car.Common.getConfigItem("discountTypeList", data.discountId, "discountId").unit %></span>
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">数量</dt>
+                        <dd class="field"><input name="purchaseQuantity" value="<%= data.purchaseQuantity %>" /></dd>
+                    </dl>
+                </div>
+                
+                <div class="action">
+                    <button class="c-btn-primary"><%= data.orderId > 0 ? "保存" : "添加" %></button>
+                </div>
+            </form>
+        </script>
+    </div>
+    <script type="text/javascript" src="js/lib/zepto.custom.js"></script>
+    <script type="text/javascript" src="js/lib/fastclick.js"></script>
+    <script type="text/javascript" src="js/lib/hammer.js"></script>
+    <script type="text/javascript" src="js/lib/baiduTemplate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/customerOrder.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            Car.customerOrder.init();
+        })
+    </script>
+</body>
+</html>

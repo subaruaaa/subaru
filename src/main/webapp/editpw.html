@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>车行——员工信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="email=no,telephone=no" name="format-detection" />
+    <link href="css/frame.css" rel="stylesheet"/>
+    <link href="css/component.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/page.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div class="f-page p-customer">
+        <header class="f-header">
+            <h1 class="heading">修改密码</h1>
+            <a class="btn-left" href="profile.html">返回</a>
+        </header>
+
+        <form class="m-listview m-listview-form" id="j-editpwform">
+            <div class="list">
+                <dl class="item">
+                    <dt class="label">原密码</dt>
+                    <dd class="field">
+                        <input type="password" value="" id="j-prepassword" />
+                    </dd>
+                </dl>
+                <dl class="item">
+                    <dt class="label">新密码</dt>
+                    <dd class="field">
+                        <input type="password" value="" id="j-password" />
+                    </dd>
+                </dl>
+                <dl class="item">
+                    <dt class="label">确认密码</dt>
+                    <dd class="field"><input type="password" value="" id="j-repassword" /></dd>
+                </dl>
+            </div>
+
+            <div class="action">
+                <button class="c-btn-primary">修改</button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="js/lib/zepto.custom.js"></script>
+    <script type="text/javascript" src="js/lib/fastclick.js"></script>
+    <script type="text/javascript" src="js/lib/hammer.js"></script>
+    <script type="text/javascript" src="js/lib/baiduTemplate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/editpw.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            Car.Editpw.init();
+        })
+    </script>
+</body>
+</html>

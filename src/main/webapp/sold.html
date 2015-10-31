@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>车行——销售情况</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="email=no,telephone=no" name="format-detection" />
+    <link href="css/frame.css" rel="stylesheet"/>
+    <link href="css/component.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/page.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div class="f-page">
+        <header class="f-header">
+            <h1 class="heading">销售情况</h1>
+            <a class="btn-left" href="home.html">首页</a>
+            <a class="btn-right" href="sold-search.html">搜索</a>
+        </header>
+
+        <nav class="c-tab c-tab-three" id="j-nav">
+        </nav>
+        
+        <script type="text/tmpl" id="j-navTmpl">
+            <a <% if(type == 0){%>class="active"<%}%> href="sold.html">近期在谈</a>
+            <a <% if(type == 1){%>class="active"<%}%> href="sold.html?type=1">已完成</a>
+            <a <% if(type == 2){%>class="active"<%}%> href="sold.html?type=2">历史记录</a>
+        </script>
+
+        <div class="table-sold" id="j-sold">
+            <table class="m-table">
+                <thead>
+                    <tr>
+                        <th width="18%">姓名</th>
+                        <th width="18%">进店次数</th>
+                        <th width="18%">完成情况</th>
+                        <th width="46%">最近进店时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <div class="c-loader" id="j-loadmore"></div>
+        </div>
+
+        <script type="text/tmpl" id="j-soldTmpl">
+            <% for (var i = 0; i < customerOnePage.length; i++){ %>
+                <% var item = customerOnePage[i] %>
+                <tr>
+                    <td><a href="customer.html?customerId=<%= item.customer.customerId %>">张山</a></td>
+                    <td><%= item.visitCount %>次</td>
+                    <td><span class="c-text-<%= item.isDone ? 'success' : 'warning'%>"><%= item.isDone ? '已' : '未'%>完成</span></td>
+                    <td><%= item.visitTime %></td>
+                </tr>
+            <% } %>
+        </script>
+    </div>
+    <script type="text/javascript" src="js/lib/zepto.custom.js"></script>
+    <script type="text/javascript" src="js/lib/fastclick.js"></script>
+    <script type="text/javascript" src="js/lib/hammer.js"></script>
+    <script type="text/javascript" src="js/lib/baiduTemplate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/sold.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            Car.Sold.init();
+        })
+    </script>
+</body>
+</html>

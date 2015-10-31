@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>车行——基本信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="email=no,telephone=no" name="format-detection" />
+    <link href="css/frame.css" rel="stylesheet"/>
+    <link href="css/component.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/page.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div class="f-page p-customer">
+        <header class="f-header">
+            <h1 class="heading">销售情况</h1>
+            <a class="btn-left" href="home.html">返回</a>
+            <a class="btn-right" href="#" id="j-editBtn" style="display:none;">修改</a>
+            <a class="btn-right c-text-danger" style="display:none;" id="j-cancelBtn" href="#">取消</a>
+        </header>
+        
+        <script type="text/tmpl" id="j-navTmpl">
+            <% var param = "?customerId=" + customerId %>
+            <a class="active" href="customer.html<%= param %>">基本信息</a>
+            <a href="customer-history.html<%= param %>">进店信息</a>
+            <a href="customer-order.html<%= param %>">结单信息</a>
+        </script>
+
+        <nav class="c-tab c-tab-three" id="j-nav" style="display:none;">
+        </nav>
+
+        <section id="j-customer"></section>
+        <script type="text/tmpl" id="j-customerTmpl">
+            <div class="m-listview">
+                <div class="list">
+                    <dl class="item">
+                        <dt class="label">姓名</dt>
+                        <dd class="field"><%= name %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">电话</dt>
+                        <dd class="field"><%= customerTel %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">职业</dt>
+                        <dd class="field"><%= occupation %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">身份证</dt>
+                        <dd class="field"><%= identityCard %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">生日</dt>
+                        <dd class="field"><%= birthday %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">邮箱</dt>
+                        <dd class="field"><%= email %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">介绍人</dt>
+                        <dd class="field"><%= introducer %> <%= Car.Common.getConfigItem("introducerTypeList", introducerTypeId, "introducerTypeId").introducerType %></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">是否拉黑</dt>
+                        <dd class="field"><%=(blacked ? "已" : "未")%>拉黑</dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">备注</dt>
+                        <dd class="field"><%= note %></dd>
+                    </dl>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/tmpl" id="j-customerEditTmpl">
+            <form class="m-listview m-listview-form" id="j-customerForm">
+                <div class="list">
+                    <dl class="item">
+                        <dt class="label">姓名</dt>
+                        <dd class="field">
+                            <input value="<%= name %>" name="name" />
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">电话</dt>
+                        <dd class="field">
+                            <input value="<%= customerTel %>" name="customerTel" />
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">职业</dt>
+                        <dd class="field">
+                            <input value="<%= occupation %>" name="occupation" />
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">身份证</dt>
+                        <dd class="field"><input value="<%= identityCard %>" name="identityCard" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">生日</dt>
+                        <dd class="field"><input type="date" value="<%= birthday %>" name="birthday" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">邮箱</dt>
+                        <dd class="field"><input value="<%= email %>" name="email" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">介绍人</dt>
+                        <dd class="field"><input value="<%= introducer %>" name="introducer" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">介绍人类型</dt>
+                        <dd class="field">
+                            <select name="introducerTypeId">
+                                <option value="">请选择</option>
+                                <% for(var i = 0; i < CONFIG.introducerTypeList.length; i++){ %>>
+                                    <% var item = CONFIG.introducerTypeList[i]; %>
+                                    <option value="<%= item.introducerTypeId %>" <%= (introducerTypeId == item.introducerTypeId ? "selected" : "") %>><%= item.introducerType %></option>
+                                <% } %>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">是否拉黑</dt>
+                        <dd class="field"><input type="checkbox" value="1" <%=(blacked ? "checked" : "")%> name="blacked" /></dd>
+                    </dl>
+                    <dl class="item">
+                        <dt class="label">备注</dt>
+                        <dd class="field"><input value="<%= note %>" name="note" /></dd>
+                    </dl>
+                </div>
+
+                <div class="action">
+                    <button class="c-btn-primary">保存</button>
+                </div>
+            </form>
+        </script>
+    </div>
+    <script type="text/javascript" src="js/lib/zepto.custom.js"></script>
+    <script type="text/javascript" src="js/lib/fastclick.js"></script>
+    <script type="text/javascript" src="js/lib/hammer.js"></script>
+    <script type="text/javascript" src="js/lib/baiduTemplate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/customer.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            Car.Customer.init();
+        })
+    </script>
+</body>
+</html>

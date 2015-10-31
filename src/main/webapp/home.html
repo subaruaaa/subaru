@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>车行——登录页</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="email=no,telephone=no" name="format-detection" />
+    <link href="css/frame.css" rel="stylesheet"/>
+    <link href="css/component.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/page.css" rel="stylesheet"/>
+</head>
+
+<body class="p-home" id="j-home">
+<script type="text/tmpl" id="j-hometmpl">
+    <header class="f-header">
+        <h1 class="heading">车行</h1>
+        <a class="btn-right c-text-danger" href="index.html" id="j-logout">退出</a>
+    </header>
+
+    <section class="m-profile j-link" data-href="profile.html">
+        <h2 class="heading"><%= employee.name %></h2>
+        <p class="level"><%= employee.position %></p>
+        <img src="images/thumbnail.png" width="50" height="50" class="thumbnail">
+        <a href="profile.html" class="arrow">&gt;</a>
+    </section>
+
+    <% if(announcement){ %>
+    <div class="m-notice">
+        <ul>
+            <li><%= announcement %></li>
+        </ul>
+    </div>
+    <% } %>
+
+    <nav class="m-gridmenu">
+        <% for (var i = 0; i < list.length; i++){%>
+            <% var item = list[i] ;%>
+            <% if (item.id == 1){ %><a href="" class="process"><span>审批</span></a><%}%>
+            <% if (item.id == 2){ %><a href="" class="chart"><span>报表</span></a><%}%>
+            <% if (item.id == 3){ %><a href="" class="mail"><span>邮箱</span></a><%}%>
+            <% if (item.id == 4){ %><a href="" class="stock"><span>库存</span></a><%}%>
+            <% if (item.id == 5){ %><a href="sold.html" class="sell"><span>销售情况</span></a><%}%>
+            <% if (item.id == 6){ %><a href="" class="feedback"><span>反馈</span></a><%}%>
+            <% if (item.id == 7){ %><a href="" class="car"><span>试驾车</span></a><%}%>
+        <% } %>
+    </nav>
+</script>
+    <div class="c-loader c-loader-popup doing">
+        <i></i>
+        <p>正在加载中...</p>
+    </div>
+    <script type="text/javascript" src="js/lib/zepto.custom.js"></script>
+    <script type="text/javascript" src="js/lib/fastclick.js"></script>
+    <script type="text/javascript" src="js/lib/hammer.js"></script>
+    <script type="text/javascript" src="js/lib/baiduTemplate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            Car.Home.init();
+        })
+    </script>
+</body>
+</html>
