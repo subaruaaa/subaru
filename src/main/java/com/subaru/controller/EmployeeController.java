@@ -51,10 +51,10 @@ public class EmployeeController {
 	public ResponseEntity<String> modifyEmployee(
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "email", required = true, defaultValue = "") String email,
-			@RequestParam(value = "identityCard", required = true, defaultValue = "") String identityCard,
+			@RequestParam(value = "identityCard", defaultValue = "") String identityCard,
 			@RequestParam(value = "birthday", required = true, defaultValue = "") String birthday,
 			@RequestParam(value = "employeeTel", required = true) String employeeTel,
-			@RequestParam(value = "status", required = true, defaultValue = "0") Integer statusId,
+			@RequestParam(value = "statusId", required = true, defaultValue = "0") Integer statusId,
 			@RequestParam(value = "add", required = true, defaultValue = "") String add,
 			@RequestParam(value = "positionId", required = true, defaultValue = "0") Integer positionId,
 			@RequestParam(value = "storeId", required = true, defaultValue = "0") Integer storeId, String callback,
