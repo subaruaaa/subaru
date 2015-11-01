@@ -101,9 +101,9 @@ public class OaService {
 		for (Entry<Integer, String> discountType : Discount.map.entrySet()) {
 			Map<String, String> d = new HashMap<String, String>();
 			if (Integer.valueOf(discountType.getKey().toString()).equals(1)) {
-				d.put("unit", "元");
+				d.put("unit", "万元");
 			} else {
-				d.put("unit", "个");
+				d.put("unit", "");
 			}
 			d.put("discountId", discountType.getKey().toString());
 			d.put("discountValue", discountType.getValue());
