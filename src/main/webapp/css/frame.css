@@ -55,12 +55,14 @@ a {-webkit-user-select:none;-webkit-user-drag:none;-webkit-tap-highlight-color:r
 	.f-header > .btn-right{
 		font-size: 15px;
 		height: 44px;
-		width: 44px;
+		min-width: 44px;
 		line-height: 44px;
 		text-align: center;
 		position: absolute;
 		top: 0;
 		color: #2e9deb;
+		padding: 0 7px;
+		box-sizing:border-box;
 	}
 
 	.f-header > .btn-left{

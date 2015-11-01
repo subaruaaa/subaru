@@ -5,8 +5,13 @@ Car.customerOrder = {
 		var that = this;
 		
 		that.customerId = Car.Common.route(document.location.href, "customerId");
+		that.from = Car.Common.route(document.location.href, "from");
 
-		$("#j-nav").html( baidu.template( $("#j-navTmpl").html(), {customerId : that.customerId} ) );
+		$("#j-nav").html( baidu.template( $("#j-navTmpl").html(), {customerId : that.customerId, from : that.from} ) );
+
+		if( that.from ){
+			$("#j-backBtn").html("搜索页").attr("href", "sold-search.html?key=" +  that.from);
+		}
 
 		Car.Common.getConfig(function(){
 			that.getCustomerHistory();

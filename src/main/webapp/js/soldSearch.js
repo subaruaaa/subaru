@@ -5,7 +5,7 @@ Car.SoldSearch = {
 		var that = this;
 		that.page_size = 10;
 		that.page_num = 0;
-		that.key = "";
+		that.key = Car.Common.route(document.location.href, "key") || "";
 
 		that.bind();
 	},
@@ -13,16 +13,6 @@ Car.SoldSearch = {
 	bind : function(){
 		var that = this;
 		var $load_more = $("#j-loadmore");
-
-		$("#j-searchForm").bind("submit", function(e){
-			e.preventDefault();
-			that.key = $(this).find("input").val().trim();
-			that.page_num = 0;
-			$("#j-search").find("tbody").html("");
-			$("#j-nodata").hide();
-			$load_more.html('<i></i><p>正在加载中...</p>').addClass("doing").removeClass("error done").show();
-			that.handleFormSubmit( that.page_num + 1);
-		});
 
 		$(window).bind("scroll", function(){
 			if(!that.key){
@@ -46,6 +36,10 @@ Car.SoldSearch = {
 
         	that.handleFormSubmit(that.page_num + 1);
         });
+
+        if (that.key &&  $("body").height() - $(window).height() - window.scrollY <= 100){
+            $load_more.trigger("click");
+        }
 	},
 
 	handleFormSubmit : function(page_num){

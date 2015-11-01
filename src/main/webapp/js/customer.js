@@ -5,9 +5,14 @@ Car.Customer = {
 		var that = this;
 		
 		that.customerId = Car.Common.route(document.location.href, "customerId");
+		that.from = Car.Common.route(document.location.href, "from");
+
+		if( that.from ){
+			$("#j-backBtn").html("搜索页").attr("href", "sold-search.html?key=" +  that.from);
+		}
 
 		if(that.customerId > 0){
-			$("#j-nav").html( baidu.template( $("#j-navTmpl").html(), {customerId : that.customerId} ) ).show();
+			$("#j-nav").html( baidu.template( $("#j-navTmpl").html(), {customerId : that.customerId, from : that.from} ) ).show();
 		}
 
 		Car.Common.getConfig(function(){

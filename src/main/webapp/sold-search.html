@@ -17,11 +17,11 @@
     <div class="f-page p-sold-search">
         <header class="f-header">
             <h1 class="heading">销售情况</h1>
-            <a class="btn-left" href="sold.html">返回</a>
+            <a class="btn-left" href="sold.html">销售情况</a>
         </header>
 
         <form class="c-search" id="j-searchForm">
-            <input type="search" placeholder="请输入客户电话或者姓名进行搜索">
+            <input name="key" type="search" placeholder="请输入客户电话或者姓名进行搜索">
             <button type="submit"></button>
         </form>
         <section>
@@ -54,7 +54,7 @@
             <% for (var i = 0; i < list.length; i++){ %>
                 <% var item = list[i] %>
                 <tr>
-                    <td><a href="customer.html?customerId=<%= item.customer.customerId %>">张山</a></td>
+                    <td><a href="customer.html?customerId=<%= item.customer.customerId %>&from=<%= Car.SoldSearch.key %>"><%= item.customer.name %></a></td>
                     <td><%= item.visitCount %>次</td>
                     <td><span class="c-text-<%= item.isDone ? 'success' : 'warning'%>"><%= item.isDone ? '已' : '未'%>完成</span></td>
                     <td><%= item.visitTime %></td>

@@ -16,14 +16,14 @@
 <body>
     <div class="f-page p-customer">
         <header class="f-header">
-            <h1 class="heading">销售情况</h1>
-            <a class="btn-left" href="home.html">返回</a>
+            <h1 class="heading">客户详情</h1>
+            <a class="btn-left" href="sold.html" id="j-backBtn">销售情况</a>
             <a class="btn-right" href="#" id="j-editBtn" style="display:none;">修改</a>
             <a class="btn-right c-text-danger" style="display:none;" id="j-cancelBtn" href="#">取消</a>
         </header>
         
         <script type="text/tmpl" id="j-navTmpl">
-            <% var param = "?customerId=" + customerId %>
+            <% var param = "?customerId=" + customerId + (from ? ("&from=" + from) : "") %>
             <a class="active" href="customer.html<%= param %>">基本信息</a>
             <a href="customer-history.html<%= param %>">进店信息</a>
             <a href="customer-order.html<%= param %>">结单信息</a>

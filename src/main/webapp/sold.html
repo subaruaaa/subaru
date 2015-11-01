@@ -51,7 +51,7 @@
             <% for (var i = 0; i < customerOnePage.length; i++){ %>
                 <% var item = customerOnePage[i] %>
                 <tr>
-                    <td><a href="customer.html?customerId=<%= item.customer.customerId %>">张山</a></td>
+                    <td><a href="customer.html?customerId=<%= item.customer.customerId %>"><%= item.customer.name %></a></td>
                     <td><%= item.visitCount %>次</td>
                     <td><span class="c-text-<%= item.isDone ? 'success' : 'warning'%>"><%= item.isDone ? '已' : '未'%>完成</span></td>
                     <td><%= item.visitTime %></td>
