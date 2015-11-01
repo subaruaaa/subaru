@@ -116,7 +116,7 @@ public class SearchService {
 
 		Collections.sort(list, new Comparator<Map<String, Object>>() {
 			public int compare(Map<String, Object> b1, Map<String, Object> b2) {
-				return b1.get("visitTime").toString().compareTo(b2.get("visitTime").toString());
+				return -1 * b1.get("visitTime").toString().compareTo(b2.get("visitTime").toString());
 			}
 
 		});
@@ -199,7 +199,7 @@ public class SearchService {
 
 		Collections.sort(list, new Comparator<Map<String, Object>>() {
 			public int compare(Map<String, Object> b1, Map<String, Object> b2) {
-				return b1.get("visitTime").toString().compareTo(b2.get("visitTime").toString());
+				return -1 * b1.get("visitTime").toString().compareTo(b2.get("visitTime").toString());
 			}
 
 		});
