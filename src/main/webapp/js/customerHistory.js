@@ -169,9 +169,6 @@ Car.customerHistory = {
 		}
 
 		if(result.code == 100){
-			Car.Common.alert("修改成功", "success");
-
-			console.log(data.visitId);
 
 			if(data.visitId > 0){
 				var item;
@@ -181,8 +178,11 @@ Car.customerHistory = {
 						break;
 					}
 				}
+
+				Car.Common.alert("修改成功", "success");
 			} else {
-				that.list.unshift(result.list[0]);
+				that.list.unshift(result.visit);
+				Car.Common.alert("添加成功", "success");
 			}
 
 			$(".j-cancelBtn").trigger('click');

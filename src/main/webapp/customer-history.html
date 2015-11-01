@@ -47,7 +47,7 @@
                         <dd class="field">
                             <select name="intentionVehicleStyleId">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.vehicleList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.vehicleList.length; i++){ %>
                                     <% var item = CONFIG.vehicleList[i]; %>
                                     <option value="<%= item.vehicleStyleId %>" <%= (data.intentionVehicleStyleId == item.vehicleStyleId ? "selected" : "") %>><%= item.vehicleStyle %></option>
                                 <% } %>
@@ -63,7 +63,7 @@
                         <dd class="field">
                             <select name="expectedDisCountId" class="j-select">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.discountTypeList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.discountTypeList.length; i++){ %>
                                     <% var item = CONFIG.discountTypeList[i]; %>
                                     <option value="<%= item.discountId %>" <%= (data.expectedDisCountId == item.discountId ? "selected" : "") %>><%= item.discountValue %></option>
                                 <% } %>
@@ -78,7 +78,7 @@
                         <dd class="field">
                             <select name="discountId" class="j-select">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.discountTypeList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.discountTypeList.length; i++){ %>
                                     <% var item = CONFIG.discountTypeList[i]; %>
                                     <option value="<%= item.discountId %>" <%= (data.discountId == item.discountId ? "selected" : "") %>><%= item.discountValue %></option>
                                 <% } %>
@@ -93,7 +93,7 @@
                         <dd class="field">
                             <select name="installationId">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.installationList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.installationList.length; i++){ %>
                                     <% var item = CONFIG.installationList[i]; %>
                                     <option value="<%= item.installationId %>" <%= (data.installationId == item.installationId ? "selected" : "") %>><%= item.installation %></option>
                                 <% } %>

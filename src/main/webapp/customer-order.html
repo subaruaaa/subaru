@@ -66,14 +66,14 @@
                         </dl>
                         <dl class="item">
                             <dt class="label">结单人</dt>
-                            <dd class="field"><%= item.employeeId %></dd>
+                            <dd class="field"><%= item.employee.name %></dd>
                         </dl>
                         <dl class="item">
                             <dt class="label">优惠情况</dt>
                             <dd class="field"><%= Car.Common.getConfigItem("discountTypeList", item.discountId, "discountId").discountValue %> <%= item.quota %><%= Car.Common.getConfigItem("discountTypeList", item.discountId, "discountId").unit %></dd>
                         </dl>
                         <dl class="item">
-                            <dt class="label">数量</dt>
+                            <dt class="label">台数</dt>
                             <dd class="field"><%= item.purchaseQuantity %></dd>
                         </dl>
                     </div>
@@ -105,7 +105,7 @@
                         <dd class="field">
                             <select name="vehicleStyleId">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.vehicleList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.vehicleList.length; i++){ %>
                                     <% var item = CONFIG.vehicleList[i]; %>
                                     <option value="<%= item.vehicleStyleId %>" <%= (data.vehicleStyleId == item.vehicleStyleId ? "selected" : "") %>><%= item.vehicleStyle %></option>
                                 <% } %>
@@ -129,7 +129,7 @@
                         <dd class="field">
                             <select name="paymentTypeId" class="j-select1">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.paymentTypeList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.paymentTypeList.length; i++){ %>
                                     <% var item = CONFIG.paymentTypeList[i]; %>
                                     <option value="<%= item.paymentTypeId %>" <%= (data.paymentTypeId == item.paymentTypeId ? "selected" : "") %>><%= item.paymentType %></option>
                                 <% } %>
@@ -138,7 +138,7 @@
                         <dd class="field j-select1-field" style="display:<%= Car.Common.getConfigItem("paymentTypeList", data.paymentTypeId, "paymentTypeId").showBank ? 'block' : 'none' %>;">
                             <select name="mortgageBankId">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.mortgageBankList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.mortgageBankList.length; i++){ %>
                                     <% var item = CONFIG.mortgageBankList[i]; %>
                                     <option value="<%= item.mortgageBankId %>" <%= (data.mortgageBankId == item.mortgageBankId ? "selected" : "") %>><%= item.mortgageBank %></option>
                                 <% } %>
@@ -151,7 +151,7 @@
                         <dd class="field">
                             <select name="discountId" class="j-select">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.discountTypeList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.discountTypeList.length; i++){ %>
                                     <% var item = CONFIG.discountTypeList[i]; %>
                                     <option value="<%= item.discountId %>" <%= (data.discountId == item.discountId ? "selected" : "") %>><%= item.discountValue %></option>
                                 <% } %>
@@ -162,7 +162,7 @@
                         </dd>
                     </dl>
                     <dl class="item">
-                        <dt class="label">数量</dt>
+                        <dt class="label">台数</dt>
                         <dd class="field"><input name="purchaseQuantity" value="<%= data.purchaseQuantity %>" /></dd>
                     </dl>
                 </div>

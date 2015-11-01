@@ -112,7 +112,7 @@
                         <dd class="field">
                             <select name="statusId">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.statusList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.statusList.length; i++){ %>
                                     <% var item = CONFIG.statusList[i]; %>
                                     <option value="<%= item.statusId %>" <%= (statusId == item.statusId ? "selected" : "") %>><%= item.status %></option>
                                 <% } %>
@@ -124,7 +124,7 @@
                         <dd class="field">
                             <select name="positionId">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.positionList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.positionList.length; i++){ %>
                                     <% var item = CONFIG.positionList[i]; %>
                                     <option value="<%= item.positionId %>" <%= (positionId == item.positionId ? "selected" : "") %>><%= item.position %></option>
                                 <% } %>
@@ -140,7 +140,7 @@
                         <dd class="field">
                             <select name="storeId">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.storeList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.storeList.length; i++){ %>
                                     <% var item = CONFIG.storeList[i]; %>
                                     <option value="<%= item.storeId %>" <%= (storeId == item.storeId ? "selected" : "") %>><%= item.store %></option>
                                 <% } %>

@@ -118,7 +118,7 @@
                         <dd class="field">
                             <select name="introducerTypeId">
                                 <option value="">请选择</option>
-                                <% for(var i = 0; i < CONFIG.introducerTypeList.length; i++){ %>>
+                                <% for(var i = 0; i < CONFIG.introducerTypeList.length; i++){ %>
                                     <% var item = CONFIG.introducerTypeList[i]; %>
                                     <option value="<%= item.introducerTypeId %>" <%= (introducerTypeId == item.introducerTypeId ? "selected" : "") %>><%= item.introducerType %></option>
                                 <% } %>

@@ -61,7 +61,8 @@ Car.Customer = {
 
 		$("#j-customer").html( baidu.template($("#j-customerEditTmpl").html(), {
 			introducerTypeId : null,
-			blacked : false
+			blacked : false,
+			customerTel : that.from
 		}));
 
 		that.bind();

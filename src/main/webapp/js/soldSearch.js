@@ -79,6 +79,7 @@ Car.SoldSearch = {
 				$load_more.hide();
 				$("#j-search").hide();
 				$("#j-nodata").show();
+				$("#j-addBtn").attr("href", "customer.html?from=" + that.key);
 				return;
 			}
 

@@ -14,10 +14,36 @@ Car.customerOrder = {
 		}
 
 		Car.Common.getConfig(function(){
-			that.getCustomerHistory();
+			that.getCustomerHistory(function(data){
+				if(data != null){
+					that.lastVisit = data.list[0];
+				}
+				
+				that.getCustomerOrder();
+			})
 		});
 	},
 	
+	getCustomerHistory : function(callback){
+		var that = this;
+ 
+		$.ajax({
+			url : CAR_HOST + "getVisitByCustomerId.php",
+			type : "GET",
+			data : {
+				customerId : that.customerId
+			},
+			dataType : "jsonp",
+			success : function(data){
+				callback(data);
+			},
+
+			error : function(data){
+				callback(null);
+			}
+		})
+	},
+
 	bind : function(){
 		var that = this;
 
@@ -25,11 +51,24 @@ Car.customerOrder = {
 			e.preventDefault();
 			$(".j-addBtn,.j-editBtn").hide();
 			that.orderId = 0;
-			$("#j-customerHistory").prepend( baidu.template($("#j-customerHistoryFormTmpl").html(), {
-				data: {
-					orderDate : Car.Common.formateDate(new Date(), "YYYY-MM-DD hh:mm:ss")
-				}
-			}));
+
+			console.log(that.lastVisit);
+
+			var data = {
+				orderDate : Car.Common.formateDate(new Date(), "YYYY-MM-DD hh:mm:ss")
+			};
+
+			if(that.lastVisit){
+				data.vehicleStyleId = that.lastVisit.intentionVehicleStyleId;
+				data.price = that.lastVisit.price;
+				data.invoicePrice = that.lastVisit.price;
+				data.quota = that.lastVisit.quota;
+				data.discountId = that.lastVisit.discountId;
+				data.purchaseQuantity = 1;
+				data.paymentTypeId = 2;
+			}
+
+			$("#j-customerHistory").prepend( baidu.template($("#j-customerHistoryFormTmpl").html(), {data : data}));
 
 			that.bind();
 		});
@@ -98,7 +137,7 @@ Car.customerOrder = {
 		});
 	},
 
-	getCustomerHistory : function(){
+	getCustomerOrder : function(){
 		var that = this;
  
 		$.ajax({
@@ -183,7 +222,7 @@ Car.customerOrder = {
 		}
 
 		if(result.code == 100){
-			Car.Common.alert("修改成功", "success");
+			
 
 			console.log(data.orderId);
 
@@ -195,8 +234,11 @@ Car.customerOrder = {
 						break;
 					}
 				}
+
+				Car.Common.alert("修改成功", "success");
 			} else {
-				that.list.unshift(result.list[0]);
+				that.list.unshift(result.order);
+				Car.Common.alert("添加成功", "success");
 			}
 
 			$(".j-cancelBtn").trigger('click');
